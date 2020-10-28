@@ -15,7 +15,7 @@ void menu()
             char choix;
             cin >> choix;
 
-            switch(choix)
+            /* switch(choix)
             {
                 case 'a':
 
@@ -41,7 +41,7 @@ void menu()
                 case 'e':
                     //faire qque chose
 
-            }
-    }while(choix != 'e');
+            }*/
+    }while(true); 
 
 }

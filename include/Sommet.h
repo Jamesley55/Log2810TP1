@@ -13,6 +13,8 @@ class Sommet
 public:
     Sommet();
     Sommet(std::string indentifiant, Constante::Type typeDessence);
+    Sommet(std::string indentifiant, std::string typeDessence);
+
     Sommet(const Sommet &sommet);
     Constante::Type getTypeEnumeration() const;
     std::string getType() const;
