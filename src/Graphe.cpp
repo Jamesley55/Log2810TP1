@@ -20,11 +20,8 @@ void Graphe::creerGraphe(const string fichierText)
 {
     ifstream myFile;
     myFile.open(fichierText);
-std:
     string ligne1;
-std:
     string ligne2;
-std:
     vector<Sommet> arraySommet;
 
     if (!myFile)
@@ -34,8 +31,8 @@ std:
     }
     else
     {
-            getline(myFile, ligne1);
-            getline(myFile, ligne2);
+        getline(myFile, ligne1);
+        getline(myFile, ligne2);
         for (int i = 0; i < ligne1.size(); i++)
         {
             int virgule = ligne1.find(",", i);
@@ -60,5 +57,3 @@ std:
         }
     }
 }
-
-

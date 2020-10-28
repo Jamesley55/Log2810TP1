@@ -4,7 +4,6 @@
 #include <string>
 #include <iostream>
 #include "Constante.h"
-#include "Arc.h"
 #include <vector>
 
 class Sommet
@@ -21,7 +20,6 @@ public:
     std::string getIdentifiant() const;
 
 private:
-    std::vector<Arc> arcs_;
     std::string identifiant_;
     Constante::Type type_;
 };

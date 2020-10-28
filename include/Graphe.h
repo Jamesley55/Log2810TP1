@@ -20,7 +20,7 @@ public:
     size_t plusCourtChemin(Sommet origine, Sommet destination);
 
 private:
-Sommet Graphe::TrouverSommet(const string sommet, vector<Sommet> arraySommet);
+    Sommet TrouverSommet(const std::string sommet, std::vector<Sommet> arraySommet);
     Voiture voiture_;
     std::vector<Arc> arc_;
     std::vector<Sommet> sommet_;
