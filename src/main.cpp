@@ -7,6 +7,4 @@ int main()
     grapheInterface.menu();
     return 0;
 
-	
-
 }
