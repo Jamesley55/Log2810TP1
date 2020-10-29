@@ -10,6 +10,9 @@ Interface::Interface()
 }
 void Interface::menu()
 {
+
+    graphe_.creerGraphe("/Users/jamesleyjoseph/School/A2020/Log2810/TD1/graphe.txt"); 
+    graphe_.lireGraphe();
     do{
         cout << "(a) " << "Demander les caractéristique du véhicule." << endl 
             << "(b) " << "Mettre à jour la carte." << endl
@@ -47,6 +50,6 @@ void Interface::menu()
                     //faire qque chose
 
             }*/
-    }while(true); 
+    }while(false); 
 
 }

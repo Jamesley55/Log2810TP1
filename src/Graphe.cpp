@@ -77,12 +77,13 @@ void Graphe::lireGraphe()
     
     for (auto it : graphe_)
     {
-        std::cout << "(" << it.first << ", (";
+        std::cout << "(" << it.first.getIdentifiant()  << it.first.getType()<< ", (";
 
         for (size_t i = 0; i < it.second.size(); i++)
         {
-            std::cout << it.second[i].getDestination().getIdentifiant();
-
+            std::cout <<"rentre dans fonction" << endl; 
+            std::cout << "second" << it.second[i].getDestination().getIdentifiant();
+        
             if (i != it.second.size() - 1)
             {
                 std::cout << ", ";
