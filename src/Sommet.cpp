@@ -69,3 +69,16 @@ std::ostream& operator<<(std::ostream& os, const Sommet& sommet)
     os << "Identifiant: " << sommet.getIdentifiant() << " (" << sommet.getType() << ")" ;
     return os;
 }
+
+bool Sommet::operator==(const Sommet &sommet) const {
+    return (identifiant_ == sommet.identifiant_) && (type_ == sommet.type_);
+}
+
+bool Sommet::operator!=(const Sommet &sommet) const {
+    return !operator==(sommet);
+}
+
+
+bool Sommet::operator<(const Sommet &sommet) const {
+    return (identifiant_ < sommet.identifiant_);
+}

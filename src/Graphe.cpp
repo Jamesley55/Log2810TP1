@@ -1,6 +1,6 @@
-#include "../include/Graphe.h"
 #include <iostream>
 #include <fstream>
+#include "Graphe.h"
 
 using namespace std;
 
@@ -59,7 +59,14 @@ void Graphe::creerGraphe(const string fichierText)
 
     for (auto itSommet : sommet_)
     {
-        graphe_[itSommet] = arc_;
+        vector<Arc> arcVoisin;
+        for( auto itArc : arc_){
+            if(itArc.getOrigin().getIdentifiant() == itSommet.getIdentifiant()){
+                arcVoisin.push_back(itArc);
+            }
+        }
+        graphe_[itSommet] = arcVoisin;
+        arcVoisin.clear();
     }
 }
 

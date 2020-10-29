@@ -19,8 +19,14 @@ public:
     std::string getType() const;
     std::string getIdentifiant() const;
 
-     // affichier les composante du somet
+     // affichier les composante du sommet
      friend std::ostream& operator<<(std::ostream& os, const Sommet& sommet);
+
+    // overload ces opertateur pour utiliser le hashmap
+    bool operator==(const Sommet &sommet) const;
+    bool operator!=(const Sommet& sommet) const;
+    bool operator<(const Sommet& sommet) const;
+
 
 private:
     std::string identifiant_;
