@@ -33,7 +33,7 @@ void Graphe::creerGraphe(const string fichierText)
     {
         getline(myFile, ligne1);
         getline(myFile, ligne2);
-        for (int i = 0; i < ligne1.size(); i++)
+        for (size_t i = 0; i < ligne1.size(); i++)
         {
             int virgule = ligne1.find(",", i);
             int pointVirgule = ligne1.find(";", i);
@@ -45,7 +45,7 @@ void Graphe::creerGraphe(const string fichierText)
 
             i = pointVirgule;
         }
-        for (int i = 0; i < ligne2.size(); i++)
+        for (size_t i = 0; i < ligne2.size(); i++)
         {
             int pointVirgule = ligne2.find(";", i);
             Sommet origine = TrouverSommet(ligne2.substr(i), sommet_);
@@ -56,4 +56,36 @@ void Graphe::creerGraphe(const string fichierText)
             i = pointVirgule;
         }
     }
+
+    for (auto itSommet : sommet_)
+    {
+        graphe_[itSommet] = arc_;
+    }
+}
+
+
+void Graphe::lireGraphe()
+
+{
+    
+    for (auto it : graphe_)
+    {
+        std::cout << "(" << it.first << ", (";
+
+        for (size_t i = 0; i < it.second.size(); i++)
+        {
+            std::cout << it.second[i].getDestination().getIdentifiant();
+
+            if (i != it.second.size() - 1)
+            {
+                std::cout << ", ";
+            }
+            else 
+			{
+                std::cout << ")";
+            }
+        }
+        std::cout << ")" << std::endl;
+    } 
+    
 }

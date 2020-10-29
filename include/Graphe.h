@@ -6,13 +6,13 @@
 #include "Arc.h"
 #include "Sommet.h"
 #include "Voiture.h"
+#include <map>
+
 
 class Graphe
 {
 
 public:
-    Graphe();
-
     void creerGraphe(const std::string fichierText);
     void lireGraphe();
     Graphe extractionGraphe(); 
@@ -24,4 +24,5 @@ private:
     Voiture voiture_;
     std::vector<Arc> arc_;
     std::vector<Sommet> sommet_;
+    std::map<Sommet, std::vector<Arc>> graphe_;
 };

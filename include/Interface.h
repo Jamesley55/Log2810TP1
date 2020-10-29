@@ -9,5 +9,5 @@ public:
     void menu();
 
 private:
-    Graphe graphe;
+    Graphe graphe_;
 };

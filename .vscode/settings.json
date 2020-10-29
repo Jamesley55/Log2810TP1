@@ -6,6 +6,7 @@
         "chrono": "cpp",
         "complex": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "iostream": "cpp"
     }
 }

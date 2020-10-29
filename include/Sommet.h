@@ -19,6 +19,9 @@ public:
     std::string getType() const;
     std::string getIdentifiant() const;
 
+     // affichier les composante du somet
+     friend std::ostream& operator<<(std::ostream& os, const Sommet& sommet);
+
 private:
     std::string identifiant_;
     Constante::Type type_;

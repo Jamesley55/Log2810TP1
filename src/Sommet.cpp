@@ -62,3 +62,10 @@ std::string Sommet::getIdentifiant() const
 {
     return identifiant_;
 }
+
+
+std::ostream& operator<<(std::ostream& os, const Sommet& sommet)
+{
+    os << "Identifiant: " << sommet.getIdentifiant() << " (" << sommet.getType() << ")" ;
+    return os;
+}

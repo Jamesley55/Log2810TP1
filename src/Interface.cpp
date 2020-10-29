@@ -1,9 +1,14 @@
 #include "Interface.h"
 #include <iostream>
+#include "Graphe.h"
 
 using namespace std;
 
-void menu()
+Interface::Interface() 
+{
+    graphe_ = Graphe();
+}
+void Interface::menu()
 {
     do{
         cout << "(a) " << "Demander les caractéristique du véhicule." << endl 
@@ -12,8 +17,8 @@ void menu()
             << "(d) " << "Determinerle plus court chemin." << endl
             << "(e) " << "Quiter" << endl;
 
-            char choix;
-            cin >> choix;
+            // char choix;
+            // cin >> choix;
 
             /* switch(choix)
             {
