@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Graphe.h"
+#include <math.h>
 
 using namespace std;
 
@@ -72,7 +73,6 @@ void Graphe::creerGraphe(const string fichierText)
 
 
 void Graphe::lireGraphe()
-
 {
     
     for (auto it : graphe_)
@@ -95,5 +95,36 @@ void Graphe::lireGraphe()
         }
         std::cout << ")" << std::endl;
     } 
+
+    cout << endl;
     
 }
+
+/*size_t Graphe::plusCourtChemin(Sommet origine, Sommet destination)
+{
+    int distance;
+    int CurrentDistance = 100;
+    int TotalDistance;
+    int CurrentSommet =  origine;
+    int CurrentArc;
+
+    //need to add if(voiture_.getType == graphe_.Sommet.type)
+    for(auto it: graphe_){
+        if (origine == graphe_.Sommet){
+            for(auto it: graphe_.Arc){
+                distance = graphe_.Arc.distance;
+                if(distance < CurrentDistance){
+                    CurrentDistance = distance;
+                    CurrentArc += graphe_.Arc;
+                }
+            }
+            TotalDistance += CurrentDistance;                 
+            if(destination == graphe_.Arc.destination)
+                break;
+            else{
+                CurrentSommet = graphe_Arc.destination;
+            }
+        }
+    }
+}
+*/
