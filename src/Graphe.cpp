@@ -36,12 +36,11 @@ void Graphe::creerGraphe(const string fichierText)
         getline(myFile, ligne2);
         for (size_t i = 0; i < ligne1.size(); i++)
         {
-            int virgule = ligne1.find(",", i);
-            int pointVirgule = ligne1.find(";", i);
+            std::size_t virgule = ligne1.find(",", i);
+            std::size_t pointVirgule = ligne1.find(";", i);
+            string identifiant = ligne1.substr(i, 1);
+            string type = ligne1.substr(virgule + 1, pointVirgule - virgule - 1);
 
-            string identifiant = ligne1.substr(i, virgule);
-
-            string type = ligne1.substr(virgule + 1, pointVirgule);
             sommet_.push_back(Sommet(identifiant, type));
 
             i = pointVirgule;
@@ -49,10 +48,9 @@ void Graphe::creerGraphe(const string fichierText)
         for (size_t i = 0; i < ligne2.size(); i++)
         {
             int pointVirgule = ligne2.find(";", i);
-            Sommet origine = TrouverSommet(ligne2.substr(i), sommet_);
-            Sommet destination = TrouverSommet(ligne2.substr(i + 1), sommet_);
-            int distance = stoi(ligne2.substr(i + 2));
-
+            Sommet origine = TrouverSommet(ligne2.substr(i, 1), sommet_);
+            Sommet destination = TrouverSommet(ligne2.substr(i + 1, 1), sommet_);
+            int distance = stoi(ligne2.substr(i + 2, 1));
             arc_.push_back(Arc(origine, destination, distance));
             i = pointVirgule;
         }
@@ -61,43 +59,38 @@ void Graphe::creerGraphe(const string fichierText)
     for (auto itSommet : sommet_)
     {
         vector<Arc> arcVoisin;
-        for( auto itArc : arc_){
-            if(itArc.getOrigin().getIdentifiant() == itSommet.getIdentifiant()){
+        for (auto itArc : arc_)
+        {
+            if (itArc.getOrigin().getIdentifiant() == itSommet.getIdentifiant())
+            {
                 arcVoisin.push_back(itArc);
             }
         }
-        graphe_[itSommet] = arcVoisin;
+        graphe_.insert(std::pair<Sommet, vector<Arc>>(itSommet, arcVoisin));
         arcVoisin.clear();
     }
 }
 
-
 void Graphe::lireGraphe()
 {
-    
-    for (auto it : graphe_)
+
+    for (auto it = graphe_.begin(); it != graphe_.end(); ++it)
     {
-        std::cout << "(" << it.first.getIdentifiant()  << it.first.getType()<< ", (";
+        std::cout << "(" << it->first;
 
-        for (size_t i = 0; i < it.second.size(); i++)
+        if (it->second.size() != 0)
         {
-            std::cout <<"rentre dans fonction" << endl; 
-            std::cout << "second" << it.second[i].getOrigin().getIdentifiant();
-        
-            if (i != it.second.size() - 1)
+            cout << "(";
+            for (auto i = 0; i < it->second.size(); i++)
             {
-                std::cout << ", ";
+                std::cout << "station: " << it->second[i].getDestination().getIdentifiant() << ", ";
             }
-            else 
-			{
-                std::cout << ")";
-            }
-        }
-        std::cout << ")" << std::endl;
-    } 
 
-    cout << endl;
-    
+            cout << ")";
+        }
+        cout
+            << ")" << endl;
+    }
 }
 
 /*size_t Graphe::plusCourtChemin(Sommet origine, Sommet destination)

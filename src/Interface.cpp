@@ -11,7 +11,7 @@ Interface::Interface()
 void Interface::menu()
 {
 
-    graphe_.creerGraphe("/Users/stevendiep/Desktop/Log2810TP1/graphe.txt"); 
+    graphe_.creerGraphe("graphe.txt"); 
     graphe_.lireGraphe();
 
     char choix;

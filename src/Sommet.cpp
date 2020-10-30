@@ -14,7 +14,7 @@ Sommet::Sommet(std::string identifiant, std::string type)
 
 {
     identifiant_ = identifiant;
-    if(type == "hybride"){
+    if(type == "hybrid"){
         type_  = Constante::Type::Hybride; 
 
     }else if(type=="electrique")
@@ -66,7 +66,7 @@ std::string Sommet::getIdentifiant() const
 
 std::ostream& operator<<(std::ostream& os, const Sommet& sommet)
 {
-    os << "Identifiant: " << sommet.getIdentifiant() << " (" << sommet.getType() << ")" ;
+    os << "station: "  << sommet.getIdentifiant()  << ", type: "<< sommet.getType() <<", ";
     return os;
 }
 
