@@ -82,7 +82,7 @@ void Graphe::lireGraphe()
         for (size_t i = 0; i < it.second.size(); i++)
         {
             std::cout <<"rentre dans fonction" << endl; 
-            std::cout << "second" << it.second[i].getDestination().getIdentifiant();
+            std::cout << "second" << it.second[i].getOrigin().getIdentifiant();
         
             if (i != it.second.size() - 1)
             {
