@@ -1,14 +1,28 @@
 
 #pragma once
 #include "Constante.h"
+#include "Arc.h"
 class Voiture
 {
 public:
-    // Voiture();
-    // Voiture(Constante::type typeDessence);
-    // Voiture(std::string typeDessence);
-    // std::string getType() const;
+     Voiture();
+     Voiture(Constante::Type type, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
+   
+    int getAutonomieMaximale() const;
+    double getAutonomieActuelle() const;
+    double getCoefficientDePerte() const;
+
+    std::string getType() const;
+    bool deplacer(const Arc& arc);
+    void recharger(Constante::Type typeStation);
+    void diminuerAutonomieActuelle(int distance);
+    bool peutArriverADestination(int distance) const;
+    double getAutonomiePourcentage() const;
+
 
 private:
-    // Constante::Type type_;
+     int autonomieMaximale_;
+    double autonomieActuelle_;
+    double coefficientDePerte_;
+    Constante::Type typeDessence_;
 };
