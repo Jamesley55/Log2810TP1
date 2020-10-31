@@ -23,11 +23,11 @@ public:
     Graphe extractionGraphe(); 
 
 
-    size_t plusCourtChemin(const Sommet& origine, const Sommet&destination);
+    size_t plusCourtChemin( Sommet origine,  Sommet destination);
 
 private:
     Sommet TrouverSommet(const std::string sommet, std::vector<Sommet> arraySommet);
-    Sommet sommetWithMinDistance(std::map<Sommet, informationSommmet> map) const; 
+    Sommet sommetWithMinDistance( std::map<Sommet, informationSommmet>  map); 
     Voiture voiture_;
     std::vector<Arc> arc_;
     std::vector<Sommet> sommet_;

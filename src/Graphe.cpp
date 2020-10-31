@@ -4,6 +4,7 @@
 #include <math.h>
 
 using namespace std;
+#define Infinity 2147483647 
 
 Sommet Graphe::TrouverSommet(const string sommet, vector<Sommet> arraySommet)
 {
@@ -91,16 +92,14 @@ void Graphe::lireGraphe()
         cout
             << ")" << endl;
     }
-    for (auto it = graphe_.begin(); it != graphe_.end(); ++it)
-    {
-        plusCourtChemin(it->second[1].getOrigin(), it->second[3].getOrigin());
-    }
+
+    plusCourtChemin(sommet_[1], sommet_[7]);
 }
 
-Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationSommmet> map) const
+Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationSommmet> map)
 {
-    size_t minimumDistance = INFINITY;
-    Sommet Winner;
+    size_t minimumDistance = Infinity;
+    Sommet Winner = Sommet();
 
     for (auto it : map)
     {
@@ -112,42 +111,40 @@ Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationSommmet> map) c
     }
     return Winner;
 }
-size_t Graphe::plusCourtChemin(const Sommet& origine, const Sommet&destination)
+size_t Graphe::plusCourtChemin(Sommet origine, Sommet destination)
 {
     std::map<Sommet, informationSommmet> station;
 
-    for (const Sommet &sommet : sommet_)
+    for (auto sommet : sommet_)
     {
-        station[sommet].distance = INFINITY;
+        station[sommet].distance = Infinity;
         station[sommet].visited = false;
     }
 
     station[origine].distance = 0;
 
-
     for (size_t i = 0; i < sommet_.size(); i++)
     {
         Sommet minimizePathway = sommetWithMinDistance(station);
         station[minimizePathway].visited = true;
-        for (auto arc : graphe_[minimizePathway])
+        for (auto& arc : graphe_[minimizePathway])
         {
-            if (!station[arc.getDestination()].visited && station[minimizePathway].distance + arc.getDistance() < station[arc.getDestination()].distance
-            && station[minimizePathway].distance != INFINITY)
+            if (station[arc.getDestination()].visited && 
+            station[minimizePathway].distance + arc.getDistance() < station[arc.getDestination()].distance && station[minimizePathway].distance != Infinity)
             {
-
-                // Station D ou J ou A ou U
-                station[arc.getDestination()].distance =
-                    // distance entre station A et station D ou J ou A ou U
-                arc.getDistance() +
-                    // station B
-                station[minimizePathway].distance;
+                cout <<"arc distance" << arc.getDistance() << endl;
+                station[arc.getDestination()].distance = arc.getDistance() + station[minimizePathway].distance;
             }
+            cout << "distance" <<  station[arc.getDestination()].distance <<endl;
         }
+
     }
     for (auto it : station)
     {
         cout << "name: " << it.first.getIdentifiant() << " distance from origin: " << it.second.distance << endl;
     }
+
+    return 0;
 }
 
 /*size_t Graphe::plusCourtChemin(Sommet origine, Sommet destination)
