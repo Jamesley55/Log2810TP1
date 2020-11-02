@@ -12,7 +12,7 @@
 struct informationStation{
     bool visited; 
     int distance; 
-    Sommet stationParent;
+    Sommet closestStation;
 };
 
 class Graphe
@@ -21,7 +21,7 @@ class Graphe
 public:
     void creerGraphe(const std::string fichierText);
     void lireGraphe();
-    Graphe extractionGraphe(); 
+    Graphe extractionGraphe();
 
 
     size_t plusCourtChemin( Sommet& origine,  Sommet& destination);
@@ -32,6 +32,7 @@ private:
     void dijkstra(std::map<Sommet, informationStation> & station); 
     void deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>  & station,  Sommet  &  origine,   Sommet & destination) ;
     Arc trouverArc(const Sommet& origine, const Sommet& destination) const;
+    std::vector<Arc> plusLongChemin(std::map<Sommet,informationStation> stations, const Voiture & voiture, const Sommet origine, std::vector<Arc> & PathwayPossible, std::vector<Arc>& longestPathways);
     Voiture voiture_;
     std::vector<Arc> arc_;
     std::vector<Sommet> sommet_;

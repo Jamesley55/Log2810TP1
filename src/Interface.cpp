@@ -14,7 +14,7 @@ void Interface::menu()
     graphe_.creerGraphe("graphe.txt"); 
     graphe_.lireGraphe();
 
-    //Initiation des variables
+    /* ---- Initiation des variables -----*/
     char choix;
 
     string type_choisi;
@@ -70,6 +70,7 @@ void Interface::menu()
                 else
                 {
                     //Extraction sous graphe  
+
                 }
             }
             else if(choix == 'd')
@@ -82,14 +83,13 @@ void Interface::menu()
 
                 cout << "Quel est l'identifiant de la destination?: " << endl;
                 cin >> destination_identifiant;
-                cout << "Quel est le type de la destination: " << endl;
+                cout << "Quel est le type de la destination?: " << endl;
                 cin >> destination_type;
 
                 origine = Sommet(origine_identifiant,origine_type);
                 destination = Sommet(destination_identifiant,destination_type);
 
-                //graphe_.plusCourtChemin(origine, destination);
-
+                graphe_.plusCourtChemin(origine, destination);
             }            
             else if(choix == 'e')
             {

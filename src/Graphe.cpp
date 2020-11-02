@@ -2,6 +2,8 @@
 #include <fstream>
 #include "Graphe.h"
 #include <math.h>
+#include <queue>
+
 
 using namespace std;
 #define Infinity 2147483647
@@ -94,9 +96,21 @@ void Graphe::lireGraphe()
             << ")" << endl;
     }
 
-    plusCourtChemin(sommet_[1], sommet_[7]);
-
 }
+
+Graphe Graphe::extractionGraphe()
+{
+    
+}
+
+std::vector<Arc> Graphe::plusLongChemin(std::map<Sommet,informationStation> stations, const Voiture & voiture, const sommet origine, std::vector<Arc> & PathwayPossible, std::vector<Arc>& longestPathways){
+
+    stations[origine].visited = true; 
+    for(const Arc& arc: PathwayPossible){
+       
+    }
+}
+
 
 Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationStation> station)
 {
@@ -137,9 +151,7 @@ void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
                 // de la destination a partir de l'origin serais la longeur de l'arc et la distance minimale de la station precedent a partir de l'origine
                 station[arc.getDestination()].distance = arc.getDistance() + station[minimizePathway].distance;
 
-                // rajouter la station parent pour avoir un cree des lien entre la nouvelle station trouver
-                // et la station qu'il doit prendre pour retourner vers l'origine dans une distance minimale
-                station[arc.getDestination()].stationParent = arc.getOrigin();
+                station[arc.getOrigin()].closestStation = arc.getDestination();
             }
         }
     }
@@ -147,32 +159,16 @@ void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
 
 void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>& station,  Sommet& origine,  Sommet& destination)
 {
+    queue<Sommet> pathWay;
+    Sommet currentStation = origine;
 
-    cout << "1";
-    // on utilise le stack grace a sa proprieter dernier arriver premier eliminer
-    // alors lorsqu'on va  rajouter les station a partir de la destination
-    // la derniere station rajouter serais la statiion origine
-    // ensuite lorsque la voiture va voyager sur le map en utilisant le stack
-    // il eliminera chaque station qu'il visite du stack a partir de l'origine jusqua la destination
-    // tout en calculant l'autonomie de la voiture
-    std::stack<Sommet> pathWay;
-
-    // note: si on aurait voulu  utiliser un queue  on aurait changer la ligne :
-    /** station[arc.getDestination()].stationParent = arc.getOrigin();  **/
-    // de la fonction dijkstra par :
-    /** station[arc.getOrigine()].prochaine Station = arc.getDestination();  **/
-
-    Sommet currentStation = destination;
-    cout << "1";
-
-    // a partir de la destination on cherche la station parent qui a la plus petite distance de l'origine
-   while (currentStation != origine)
+    // a partir de l'origine on cherche la station la plus proche et on le rajoute dans le queue
+   while (currentStation != destination)
     {
-        // on rajoute cette station dans le stack jusqu'a arriver vers l'origine
+        // on rajoute cette station dans le queue jusqu'a arriver vers la destination
         pathWay.push(currentStation);
-
-        // on trouve la station parents jusqu'a arriver vers l'origine
-        currentStation = station[currentStation].stationParent;
+        // on trouve la station la plus proche pour la prochaine iteration jusqu'a arriver vers la destination
+        currentStation = station[currentStation].closestStation;
     }
     
 
@@ -182,18 +178,16 @@ void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>& st
         std::cout << PointDeDepart.getIdentifiant() << " -> ";
     while (!pathWay.empty())
     {
-        Sommet destination = pathWay.top();
+        Sommet currentStationVoiture = pathWay.front();
         pathWay.pop();
 
-       // voitureFull = voiture_.deplacer(trouverArc(PointDeDepart, destination));
-        PointDeDepart = destination;
-        cout << "4";
-
+        voitureFull = voiture_.deplacer(trouverArc(PointDeDepart, currentStationVoiture));
+        PointDeDepart = currentStationVoiture;
         if (voitureFull)
-            std::cout << destination.getIdentifiant();
+            std::cout << currentStationVoiture.getIdentifiant();
         else
         {
-            std::cout << " L'autonomie de votre vehicule ne permet pas d'aller plus loin. " << std::endl;
+            std::cout << "vous ne pouvez plus vous deplacer " << std::endl;
             break;
         }
 
@@ -229,17 +223,15 @@ size_t Graphe::plusCourtChemin(Sommet& origine, Sommet& destination)
     // dijkstra's algorithm
     dijkstra(station);
 
-    // faut changer cette fonction cause ca marche pas
 
     // verifie qu'il y a un chemin qui existe entre la pathway et l'origine
     // si il n'y a pas de  pathway alors la distance serais infinie
-    cout << bool(station[destination].distance != Infinity) << "fini"<< endl;
     if ( station[destination].distance != Infinity)
     {
+        // on deplace la voiture sur le graphe jusqu'a arriver a la destination 
+        // cette fonction permet de controller l'autonomie de la voiture 
+        // et determiner si on peut arriver a destination
          deplacerVoitureSurleGraphe(station,origine,destination);
     }
-    cout << endl;
-    cout << "distance entre l'origine et la destination : " << station[destination].distance << endl;
-    cout << endl;
     return station[destination].distance;
 }
