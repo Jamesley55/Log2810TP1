@@ -14,14 +14,23 @@ void Interface::menu()
     graphe_.creerGraphe("graphe.txt"); 
     graphe_.lireGraphe();
 
-
+    //Initiation des variables
     char choix;
+
     string type_choisi;
     int autonomie_max;
     int autonomie_actuel;
+    
     string nom_fichier;
+
     Sommet origine;
     Sommet destination;
+    string origine_identifiant;
+    string origine_type;
+    string destination_identifiant;
+    string destination_type;
+    /*---------------------*/
+
 
     do{
         cout << endl << "(a) " << "Demander les caractéristique du véhicule." << endl 
@@ -32,7 +41,7 @@ void Interface::menu()
 
             cin >> choix;
 
-            if(choix == 'a')
+            if(choix == 'a') 
             {
                 cout << "Veuillez choisir le type de carburant: (rien, hybrid, electrique, essence) " << endl;
                 cin >> type_choisi;
@@ -48,7 +57,7 @@ void Interface::menu()
             {
                 cout << "Veuillez entrer le nom du fichier: " << endl;
                 cin >> nom_fichier;
-                //creer et affiche le nouveau graphe 
+                //creer et affiche le nouveau graphe
                 graphe_.creerGraphe(nom_fichier); 
                 graphe_.lireGraphe();
             }            
@@ -66,6 +75,21 @@ void Interface::menu()
             else if(choix == 'd')
             {
                 //Plus court chemin
+                cout << "Quel est l'identifiant de l'origine?: " << endl;
+                cin >> origine_identifiant;
+                cout << "Quel est le type de l'origine?: " << endl;
+                cin >> origine_type;
+
+                cout << "Quel est l'identifiant de la destination?: " << endl;
+                cin >> destination_identifiant;
+                cout << "Quel est le type de la destination: " << endl;
+                cin >> destination_type;
+
+                origine = Sommet(origine_identifiant,origine_type);
+                destination = Sommet(destination_identifiant,destination_type);
+
+                //graphe_.plusCourtChemin(origine, destination);
+
             }            
             else if(choix == 'e')
             {
