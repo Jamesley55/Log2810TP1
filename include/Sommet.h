@@ -19,7 +19,7 @@ public:
     std::string getType() const;
     std::string getIdentifiant() const;
 
-     // affichier les composante du sommet
+     // afficher les composante du sommet
      friend std::ostream& operator<<(std::ostream& os, const Sommet& sommet);
 
     // overload ces opertateur pour utiliser le hashmap

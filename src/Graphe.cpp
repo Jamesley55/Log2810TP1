@@ -72,6 +72,7 @@ void Graphe::creerGraphe(const string fichierText)
     }
 }
 
+
 void Graphe::lireGraphe()
 {
 
@@ -94,6 +95,7 @@ void Graphe::lireGraphe()
     }
 
     plusCourtChemin(sommet_[1], sommet_[7]);
+
 }
 
 Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationStation> station)

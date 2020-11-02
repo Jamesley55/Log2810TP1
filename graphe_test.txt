@@ -1,0 +1,3 @@
+C,rien;V,rien;G,rien;S,rien;X,rien;E,rien;P,rien;B,rien;D,rien;J,rien;K,rien;A,rien;U,rien;
+CV2;CB5;CP3;CE1;VG1;VB5;GS1;GB4;SX1;SB4;XB4;EP2;PB5;PD3;PK5;BD4;BJ4;BA6;BU3;DJ2;DK4;JA4;KA3;AU3;
+

@@ -14,13 +14,17 @@ void Interface::menu()
     graphe_.creerGraphe("graphe.txt"); 
     graphe_.lireGraphe();
 
+
     char choix;
     string type_choisi;
     int autonomie_max;
     int autonomie_actuel;
+    string nom_fichier;
+    Sommet origine;
+    Sommet destination;
 
     do{
-        cout << "(a) " << "Demander les caractéristique du véhicule." << endl 
+        cout << endl << "(a) " << "Demander les caractéristique du véhicule." << endl 
             << "(b) " << "Mettre à jour la carte." << endl
             << "(c) " << "Extraire un sous-graphe." <<  endl
             << "(d) " << "Determinerle plus court chemin." << endl
@@ -42,15 +46,26 @@ void Interface::menu()
             }
             else if(choix == 'b')
             {
-                //qque chose
+                cout << "Veuillez entrer le nom du fichier: " << endl;
+                cin >> nom_fichier;
+                //creer et affiche le nouveau graphe 
+                graphe_.creerGraphe(nom_fichier); 
+                graphe_.lireGraphe();
             }            
             else if(choix == 'c')
             {
-                //qque chose
+                if(type_choisi == "") //Si le user choisi option e avant option a
+                {
+                    cout << "Vous avez choisi l'option c avant l'otion a!" << endl;
+                }
+                else
+                {
+                    //Extraction sous graphe  
+                }
             }
             else if(choix == 'd')
             {
-                //qque chose
+                //Plus court chemin
             }            
             else if(choix == 'e')
             {
@@ -62,6 +77,6 @@ void Interface::menu()
                 cout << "Veuillez reessayer" << endl;
             }
 
-    }while(choix != 'e'); 
+    }while(choix != 'e'); //afficher le menu tant que option e n'est pas choisi
 
 }
