@@ -237,6 +237,14 @@ Sommet Graphe::trouverSommet(const std::string &SommetToFind)
     return Sommet();
 }
 
+void Graphe::Clear()
+{
+    arc_.clear();
+    sommet_.clear();
+    graphe_.clear();
+}
+
+
 void Graphe::VoiturePropriety(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte)
 {
 

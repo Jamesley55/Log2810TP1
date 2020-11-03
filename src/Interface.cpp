@@ -72,7 +72,7 @@ void Interface::menu()
         {
             cout << "Veuillez entrer le nom du fichier: " << endl;
             cin >> nom_fichier;
-            //creer et affiche le nouveau graphe
+            graphe_.Clear();
             graphe_.creerGraphe(nom_fichier);
             graphe_.lireGraphe();
         }

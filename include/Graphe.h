@@ -30,6 +30,9 @@ public:
     bool sommetInGraphe(const std::string& Sommet); 
     Sommet trouverSommet(const std::string& nomSommet);
 
+    
+    void Clear();
+
 
 
 private:
@@ -38,7 +41,7 @@ private:
     void dijkstra(std::map<Sommet, informationStation> & station); 
     void deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>  & station,  Sommet  &  origine,   Sommet & destination) ;
     Arc trouverArc(const Sommet& origine, const Sommet& destination) const;
-
+    
     Voiture voiture_;
     std::vector<Arc> arc_;
     std::vector<Sommet> sommet_;
