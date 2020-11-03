@@ -3,8 +3,7 @@
 int main()
 {
 
-	Interface grapheInterface = Interface();
+    Interface grapheInterface = Interface();
     grapheInterface.menu();
     return 0;
-
 }

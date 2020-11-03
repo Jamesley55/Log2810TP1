@@ -10,18 +10,19 @@ Sommet::Sommet(std::string identifiant, Constante::Type type) : identifiant_(ide
 {
 }
 
-Sommet::Sommet(std::string identifiant, std::string type) 
+Sommet::Sommet(std::string identifiant, std::string type)
 
 {
     identifiant_ = identifiant;
-    if(type == "hybrid"){
-        type_  = Constante::Type::Hybride; 
-
-    }else if(type=="electrique")
+    if (type == "hybrid")
+    {
+        type_ = Constante::Type::Hybride;
+    }
+    else if (type == "electrique")
     {
         type_ = Constante::Type::Electrique;
     }
-    else if(type == "essence")
+    else if (type == "essence")
     {
         type_ = Constante::Type::Essence;
     }
@@ -63,22 +64,23 @@ std::string Sommet::getIdentifiant() const
     return identifiant_;
 }
 
-
-std::ostream& operator<<(std::ostream& os, const Sommet& sommet)
+std::ostream &operator<<(std::ostream &os, const Sommet &sommet)
 {
-    os << "station: "  << sommet.getIdentifiant()  << ", type: "<< sommet.getType() <<", ";
+    os << "station: " << sommet.getIdentifiant() << ", type: " << sommet.getType() << ", ";
     return os;
 }
 
-bool Sommet::operator==(const Sommet &sommet) const {
+bool Sommet::operator==(const Sommet &sommet) const
+{
     return (identifiant_ == sommet.identifiant_) && (type_ == sommet.type_);
 }
 
-bool Sommet::operator!=(const Sommet &sommet) const {
+bool Sommet::operator!=(const Sommet &sommet) const
+{
     return !operator==(sommet);
 }
 
-
-bool Sommet::operator<(const Sommet &sommet) const {
+bool Sommet::operator<(const Sommet &sommet) const
+{
     return (identifiant_ < sommet.identifiant_);
 }

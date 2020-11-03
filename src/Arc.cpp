@@ -9,22 +9,27 @@ Arc::Arc(Sommet origin, Sommet destination, const int distance)
       destination_(destination),
       distance_(distance) {}
 
-int Arc::getDistance() const {
+int Arc::getDistance() const
+{
     return distance_;
 }
 
-Sommet Arc::getOrigin() const {
+Sommet Arc::getOrigin() const
+{
     return origin_;
 }
 
-Sommet Arc::getDestination() const {
+Sommet Arc::getDestination() const
+{
     return destination_;
 }
 
-void Arc::setDistance(int distance){
+void Arc::setDistance(int distance)
+{
     distance = distance_;
 }
 
-Arc Arc::clone(){
-    return Arc(origin_, destination_, distance_); 
+Arc Arc::clone()
+{
+    return Arc(origin_, destination_, distance_);
 }

@@ -4,7 +4,6 @@
 #include <math.h>
 #include <queue>
 
-
 using namespace std;
 #define Infinity 2147483647
 
@@ -74,7 +73,6 @@ void Graphe::creerGraphe(const string fichierText)
     }
 }
 
-
 void Graphe::lireGraphe()
 {
 
@@ -95,38 +93,38 @@ void Graphe::lireGraphe()
         cout
             << ")" << endl;
     }
-
 }
 
-Graphe Graphe::extractionGraphe()
+size_t Graphe::plusCourtChemin(Sommet &origine, Sommet &destination)
 {
-    
-}
 
-std::vector<Arc> Graphe::plusLongChemin(std::map<Sommet,informationStation> stations, const Voiture & voiture, const sommet origine, std::vector<Arc> & PathwayPossible, std::vector<Arc>& longestPathways){
+    std::map<Sommet, informationStation> station;
 
-    stations[origine].visited = true; 
-    for(const Arc& arc: PathwayPossible){
-       
-    }
-}
-
-
-Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationStation> station)
-{
-    size_t minimumDistance = Infinity;
-    Sommet Winner = Sommet();
-
-    for (auto& it : station)
+    for (auto &sommet : sommet_)
     {
-        if (!it.second.visited && it.second.distance <= minimumDistance)
-        {
-            minimumDistance = it.second.distance;
-            Winner = it.first;
-        }
+        station[sommet].distance = Infinity;
+        station[sommet].visited = false;
     }
-    return Winner;
+
+    station[origine].distance = 0;
+
+    // dijkstra's algorithm
+    dijkstra(station);
+
+    // verifie qu'il y a un chemin qui existe entre la pathway et l'origine
+    // si il n'y a pas de  pathway alors la distance serais infinie
+    if (station[destination].distance != Infinity)
+    {
+        // on deplace la voiture sur le graphe jusqu'a arriver a la destination
+        // cette fonction permet de controller l'autonomie de la voiture
+        // et determiner si on peut arriver a destination
+        deplacerVoitureSurleGraphe(station, origine, destination);
+    }
+    return station[destination].distance;
 }
+
+
+
 
 void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
 {
@@ -151,26 +149,44 @@ void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
                 // de la destination a partir de l'origin serais la longeur de l'arc et la distance minimale de la station precedent a partir de l'origine
                 station[arc.getDestination()].distance = arc.getDistance() + station[minimizePathway].distance;
 
-                station[arc.getOrigin()].closestStation = arc.getDestination();
+                station[minimizePathway].closestStation = arc.getDestination();
             }
         }
     }
 }
 
-void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>& station,  Sommet& origine,  Sommet& destination)
+Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationStation> station)
+{
+    size_t minimumDistance = Infinity;
+    Sommet Winner = Sommet();
+
+    for (auto &it : station)
+    {
+        if (!it.second.visited && it.second.distance <= minimumDistance)
+        {
+            minimumDistance = it.second.distance;
+            Winner = it.first;
+        }
+    }
+    return Winner;
+}
+
+void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation> &station, Sommet &origine, Sommet &destination)
 {
     queue<Sommet> pathWay;
     Sommet currentStation = origine;
-
+    int count=0;
     // a partir de l'origine on cherche la station la plus proche et on le rajoute dans le queue
-   while (currentStation != destination)
+    while (currentStation != destination  )
     {
         // on rajoute cette station dans le queue jusqu'a arriver vers la destination
         pathWay.push(currentStation);
-        // on trouve la station la plus proche pour la prochaine iteration jusqu'a arriver vers la destination
+        // on trouve la station la plus proche pour la prochaine0 iteration jusqu'a arriver vers la destination
         currentStation = station[currentStation].closestStation;
+        count++;
+        if(count == 100000)
+          break;
     }
-    
 
     bool voitureFull;
     Sommet PointDeDepart = origine;
@@ -184,7 +200,7 @@ void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>& st
         voitureFull = voiture_.deplacer(trouverArc(PointDeDepart, currentStationVoiture));
         PointDeDepart = currentStationVoiture;
         if (voitureFull)
-            std::cout << currentStationVoiture.getIdentifiant();
+            std::cout << PointDeDepart.getIdentifiant();
         else
         {
             std::cout << "vous ne pouvez plus vous deplacer " << std::endl;
@@ -194,7 +210,7 @@ void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>& st
         if (!pathWay.empty())
             std::cout << " -> ";
     }
-    
+
     std::cout << std::endl;
 }
 Arc Graphe::trouverArc(const Sommet &origine, const Sommet &destination) const
@@ -207,31 +223,29 @@ Arc Graphe::trouverArc(const Sommet &origine, const Sommet &destination) const
 
     return Arc();
 }
-size_t Graphe::plusCourtChemin(Sommet& origine, Sommet& destination)
+
+bool Graphe::sommetInGraphe(const std::string &SommetToFind)
+{
+    for (const Sommet &sommet : sommet_)
+        if (sommet.getIdentifiant() == SommetToFind)
+            return true;
+    return false;
+}
+
+Sommet Graphe::trouverSommet(const std::string &SommetToFind) 
+{
+    for (const Sommet& sommet : sommet_)
+        if (sommet.getIdentifiant() == SommetToFind)
+            return sommet;
+    return Sommet();
+}
+
+void Graphe::VoiturePropriety(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte)
 {
 
-    std::map<Sommet, informationStation> station;
+    voiture_ = Voiture(typeDessence, autonomieMaximale, autonomieActuelle, coefficientDePerte);
+}
 
-    for (auto& sommet : sommet_)
-    {
-        station[sommet].distance = Infinity;
-        station[sommet].visited = false;
-    }
-
-    station[origine].distance = 0;
-
-    // dijkstra's algorithm
-    dijkstra(station);
-
-
-    // verifie qu'il y a un chemin qui existe entre la pathway et l'origine
-    // si il n'y a pas de  pathway alors la distance serais infinie
-    if ( station[destination].distance != Infinity)
-    {
-        // on deplace la voiture sur le graphe jusqu'a arriver a la destination 
-        // cette fonction permet de controller l'autonomie de la voiture 
-        // et determiner si on peut arriver a destination
-         deplacerVoitureSurleGraphe(station,origine,destination);
-    }
-    return station[destination].distance;
+Voiture Graphe::getVoiture(){
+    return voiture_;
 }

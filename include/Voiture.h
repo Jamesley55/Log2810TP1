@@ -5,8 +5,10 @@
 class Voiture
 {
 public:
-     Voiture();
-     Voiture(Constante::Type type, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
+    Voiture();
+    Voiture(Constante::Type type, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
+    Voiture clone() const;
+
    
     int getAutonomieMaximale() const;
     double getAutonomieActuelle() const;
@@ -18,6 +20,7 @@ public:
     void diminuerAutonomieActuelle(int distance);
     bool peutArriverADestination(int distance) const;
     double getAutonomiePourcentage() const;
+    
 
 
 private:
