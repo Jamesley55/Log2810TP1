@@ -123,9 +123,6 @@ size_t Graphe::plusCourtChemin(Sommet &origine, Sommet &destination)
     return station[destination].distance;
 }
 
-
-
-
 void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
 {
 
@@ -149,7 +146,7 @@ void Graphe::dijkstra(std::map<Sommet, informationStation> &station)
                 // de la destination a partir de l'origin serais la longeur de l'arc et la distance minimale de la station precedent a partir de l'origine
                 station[arc.getDestination()].distance = arc.getDistance() + station[minimizePathway].distance;
 
-                station[minimizePathway].closestStation = arc.getDestination();
+                station[arc.getDestination()].closestStation = arc.getOrigin();
             }
         }
     }
@@ -173,34 +170,34 @@ Sommet Graphe::sommetWithMinDistance(std::map<Sommet, informationStation> statio
 
 void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation> &station, Sommet &origine, Sommet &destination)
 {
-    queue<Sommet> pathWay;
-    Sommet currentStation = origine;
-    int count=0;
+    std::stack<Sommet> pathWay;
+    Sommet currentStation = destination;
     // a partir de l'origine on cherche la station la plus proche et on le rajoute dans le queue
-    while (currentStation != destination  )
+   do
     {
         // on rajoute cette station dans le queue jusqu'a arriver vers la destination
+        cout << "Origine station" << currentStation << endl;
+
         pathWay.push(currentStation);
         // on trouve la station la plus proche pour la prochaine0 iteration jusqu'a arriver vers la destination
         currentStation = station[currentStation].closestStation;
-        count++;
-        if(count == 100000)
-          break;
-    }
-
+        cout << currentStation << endl; 
+    } while (currentStation.getIdentifiant() != origine.getIdentifiant());
+  
     bool voitureFull;
     Sommet PointDeDepart = origine;
+   
+
     if (!pathWay.empty())
         std::cout << PointDeDepart.getIdentifiant() << " -> ";
     while (!pathWay.empty())
     {
-        Sommet currentStationVoiture = pathWay.front();
+        Sommet currentStationVoiture = pathWay.top();
         pathWay.pop();
-
         voitureFull = voiture_.deplacer(trouverArc(PointDeDepart, currentStationVoiture));
         PointDeDepart = currentStationVoiture;
         if (voitureFull)
-            std::cout << PointDeDepart.getIdentifiant();
+            std::cout << currentStationVoiture.getIdentifiant();
         else
         {
             std::cout << "vous ne pouvez plus vous deplacer " << std::endl;
@@ -232,9 +229,9 @@ bool Graphe::sommetInGraphe(const std::string &SommetToFind)
     return false;
 }
 
-Sommet Graphe::trouverSommet(const std::string &SommetToFind) 
+Sommet Graphe::trouverSommet(const std::string &SommetToFind)
 {
-    for (const Sommet& sommet : sommet_)
+    for (const Sommet &sommet : sommet_)
         if (sommet.getIdentifiant() == SommetToFind)
             return sommet;
     return Sommet();
@@ -246,6 +243,7 @@ void Graphe::VoiturePropriety(Constante::Type typeDessence, const int autonomieM
     voiture_ = Voiture(typeDessence, autonomieMaximale, autonomieActuelle, coefficientDePerte);
 }
 
-Voiture Graphe::getVoiture(){
+Voiture Graphe::getVoiture()
+{
     return voiture_;
 }
