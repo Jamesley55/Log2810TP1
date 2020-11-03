@@ -35,7 +35,7 @@ double Voiture::getCoefficientDePerte() const
 
 bool Voiture::peutArriverADestination(const int distance) const
 {
-    return ((distance * coefficientDePerte_ * autonomieMaximale_) + distance <= autonomieActuelle_);
+    return ((distance * coefficientDePerte_ * autonomieMaximale_) <= autonomieActuelle_);
 }
 bool Voiture::deplacer(const Arc &arc)
 {

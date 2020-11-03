@@ -1,6 +1,7 @@
 #include "Interface.h"
 #include <iostream>
 #include "Graphe.h"
+#include <stack>
 
 using namespace std;
 #define Infinity 2147483647
@@ -91,10 +92,17 @@ void Interface::menu()
                 Sommet sommet = graphe_.trouverSommet(origine_identifiant);
                 Voiture voiture = graphe_.getVoiture();
                 std::vector<Arc>  sousGraphe = graphe_.extractionGraphe(sommet, voiture);
-
-                for( auto & arc : sousGraphe){
-                    cout << "sous-graphe" << arc.getOrigin().getIdentifiant() << arc.getDestination().getIdentifiant() << endl;
+                std::stack<Arc> affichageGraphe;
+                  for(auto & arc: sousGraphe){
+                    
+                    affichageGraphe.push(arc);
                 }
+                cout << "sous-graphe: " << endl; 
+                while(!affichageGraphe.empty()){
+                    cout << "-->" << affichageGraphe.top().getOrigin().getIdentifiant();  
+                    affichageGraphe.pop();
+                }              
+                cout << endl;
             }
         }
         else if (choix == 'd')

@@ -21,7 +21,7 @@ class Graphe
 public:
     void creerGraphe(const std::string fichierText);
     void lireGraphe();
-    std::vector<Arc> extractionGraphe();
+    std::vector<Arc> extractionGraphe(Sommet & sommet, Voiture & Voiture);
     Voiture getVoiture();
 
 
@@ -29,7 +29,6 @@ public:
     void VoiturePropriety(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
     bool sommetInGraphe(const std::string& Sommet); 
     Sommet trouverSommet(const std::string& nomSommet);
-    std::vector<Arc> extractionGraphe(Sommet & sommet, Voiture & Voiture);
 
     
     void Clear();

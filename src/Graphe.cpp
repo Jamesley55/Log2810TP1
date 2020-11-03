@@ -173,7 +173,7 @@ void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation> &st
     std::stack<Sommet> pathWay;
     Sommet currentStation = destination;
     // a partir de l'origine on cherche la station la plus proche et on le rajoute dans le queue
-   do
+    do
     {
         // on rajoute cette station dans le queue jusqu'a arriver vers la destination
         cout << "Origine station" << currentStation << endl;
@@ -181,12 +181,11 @@ void Graphe::deplacerVoitureSurleGraphe(std::map<Sommet, informationStation> &st
         pathWay.push(currentStation);
         // on trouve la station la plus proche pour la prochaine0 iteration jusqu'a arriver vers la destination
         currentStation = station[currentStation].closestStation;
-        cout << currentStation << endl; 
+        cout << currentStation << endl;
     } while (currentStation.getIdentifiant() != origine.getIdentifiant());
-  
+
     bool voitureFull;
     Sommet PointDeDepart = origine;
-   
 
     if (!pathWay.empty())
         std::cout << PointDeDepart.getIdentifiant() << " -> ";
@@ -244,7 +243,6 @@ void Graphe::Clear()
     graphe_.clear();
 }
 
-
 void Graphe::VoiturePropriety(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte)
 {
 
@@ -256,7 +254,8 @@ Voiture Graphe::getVoiture()
     return voiture_;
 }
 
-std::vector<Arc> Graphe::extractionGraphe(Sommet & sommet, Voiture & Voiture){
+std::vector<Arc> Graphe::extractionGraphe(Sommet &sommet, Voiture &Voiture)
+{
     std::map<Sommet, informationStation> station;
 
     for (auto &sommet : sommet_)
@@ -266,30 +265,33 @@ std::vector<Arc> Graphe::extractionGraphe(Sommet & sommet, Voiture & Voiture){
     }
     std::vector<Arc> pathWay;
 
-    dfs(sommet, station,pathWay, Voiture);
+    dfs(sommet, station, pathWay, Voiture);
     return pathWay;
-    
 }
 
- void Graphe::dfs(Sommet &sommet, std::map<Sommet, informationStation> station, vector<Arc>& pathway, Voiture & Voiture) {
-        station[sommet].visited = true; 
-        Arc arc = longestDestination(graphe_[sommet], station, Voiture);
-        if(!station[arc.getDestination()].visited){
-            Sommet destination = arc.getDestination();
-            dfs(destination, station, pathway, Voiture);
-            pathway.push_back(arc);
-        }
-
+void Graphe::dfs(Sommet &sommet, std::map<Sommet, informationStation> station, vector<Arc> &pathway, Voiture &Voiture)
+{
+    station[sommet].visited = true;
+    Arc arc = longestDestination(graphe_[sommet], station, Voiture);
+    Arc arcVide = Arc();
+    if (!station[arc.getDestination()].visited && arc.getDestination() != arcVide.getDestination() &&arc.getOrigin() != arcVide.getOrigin())
+    {
+        Sommet destination = arc.getDestination();
+        cout << "dfs" << destination.getIdentifiant();
+        dfs(destination, station, pathway, Voiture);
+        pathway.push_back(arc);
+    }
 }
 
-Arc Graphe::longestDestination( std::vector<Arc> & arcs, std::map<Sommet, informationStation> station, Voiture & Voiture){
+Arc Graphe::longestDestination(std::vector<Arc> &arcs, std::map<Sommet, informationStation> station, Voiture &Voiture)
+{
     Arc longestDestination = Arc();
 
-    for(auto &arc : arcs)  {
+    for (auto &arc : arcs)
+    {
         bool voitureFull = voiture_.deplacer(trouverArc(arc.getOrigin(), arc.getDestination()));
-        if(arc.getDistance() > longestDestination.getDistance() && !station[arc.getDestination()].visited && voitureFull)
-            longestDestination = arc; 
+        if (arc.getDistance() > longestDestination.getDistance() && !station[arc.getDestination()].visited)
+            longestDestination = arc;
     }
-
     return longestDestination;
 }
