@@ -52,7 +52,7 @@ void Interface::menu()
 
         cin >> choix;
 
-        if (choix == 'a')
+        if (choix == 'a') //demander les caracteristique de la voiture
         {
             cout << "Veuillez choisir le type de carburant: (rien, hybrid, electrique, essence) " << endl;
             cin >> type_choisi;
@@ -69,15 +69,15 @@ void Interface::menu()
             graphe_.VoiturePropriety(getTypeEnum(type_choisi), autonomie_max, autonomie_actuel, coefficientDePerte);
             voitureACaracteristique = true;
         }
-        else if (choix == 'b')
+        else if (choix == 'b') //afficher le nouveau graphe
         {
             cout << "Veuillez entrer le nom du fichier: " << endl;
             cin >> nom_fichier;
-            graphe_.Clear();
+            graphe_.Clear(); //clear l'ancien graphe pour le nouveau
             graphe_.creerGraphe(nom_fichier);
             graphe_.lireGraphe();
         }
-        else if (choix == 'c')
+        else if (choix == 'c') //extraction d'un sous-graphe
         {
             if (!voitureACaracteristique) //Si le user choisi option e avant option a
             {
@@ -105,7 +105,7 @@ void Interface::menu()
                 cout << endl;
             }
         }
-        else if (choix == 'd')
+        else if (choix == 'd') //trouver le plus court chemin
         {
             if (!voitureACaracteristique)
             {
@@ -142,6 +142,7 @@ void Interface::menu()
         }
         else
         {
+            //Si l'usager entre un index invalide
             cout << "Vous n'avez pas entrer un index valide" << endl;
             cout << "Veuillez reessayer" << endl;
         }

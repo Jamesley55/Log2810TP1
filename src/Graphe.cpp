@@ -27,23 +27,23 @@ void Graphe::creerGraphe(const string fichierText)
     string ligne2;
     vector<Sommet> arraySommet;
 
-    if (!myFile)
+    if (!myFile) //si le fichier n'existe pas
     {
         cerr << "Ne peut pas ouvrir ce fichier!";
         exit(1);
     }
     else
     {
-        getline(myFile, ligne1);
-        getline(myFile, ligne2);
+        getline(myFile, ligne1); //prend la premiere ligne dans le fichier
+        getline(myFile, ligne2); //prend la deuxieme ligne dans le fichier
         for (size_t i = 0; i < ligne1.size(); i++)
         {
             std::size_t virgule = ligne1.find(",", i);
             std::size_t pointVirgule = ligne1.find(";", i);
-            string identifiant = ligne1.substr(i, 1);
-            string type = ligne1.substr(virgule + 1, pointVirgule - virgule - 1);
+            string identifiant = ligne1.substr(i, 1); //prend l'identifiant 
+            string type = ligne1.substr(virgule + 1, pointVirgule - virgule - 1); //prend le type
 
-            sommet_.push_back(Sommet(identifiant, type));
+            sommet_.push_back(Sommet(identifiant, type)); //met l'identifiant et le type dans un sommet
 
             i = pointVirgule;
         }
