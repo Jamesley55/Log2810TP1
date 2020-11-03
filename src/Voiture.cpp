@@ -7,7 +7,7 @@ Voiture::Voiture() : typeDessence_(Constante::Type::Rien),
 {
 }
 
-Voiture::Voiture(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte) : typeDessence_(typeDessence),
+Voiture::Voiture(Constante::Type typeDessence, const int autonomieMaximale, const int autonomieActuelle, const double coefficientDePerte) : typeDessence_(typeDessence),
                                                                                                                                                autonomieMaximale_(autonomieMaximale),
                                                                                                                                                autonomieActuelle_(autonomieActuelle),
                                                                                                                                                coefficientDePerte_(coefficientDePerte)

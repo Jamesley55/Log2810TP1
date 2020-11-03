@@ -6,7 +6,7 @@ class Voiture
 {
 public:
     Voiture();
-    Voiture(Constante::Type type, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
+    Voiture(Constante::Type type, const int autonomieMaximale, const int autonomieActuelle, const double coefficientDePerte);
     Voiture clone() const;
 
    

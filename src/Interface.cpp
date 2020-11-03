@@ -21,7 +21,7 @@ void Interface::menu()
     string type_choisi;
     int autonomie_max;
     int autonomie_actuel;
-    float coefficientDePerte;
+    double coefficientDePerte;
 
     string nom_fichier;
 
@@ -78,13 +78,23 @@ void Interface::menu()
         }
         else if (choix == 'c')
         {
-            if (type_choisi == "") //Si le user choisi option e avant option a
+            if (!voitureACaracteristique) //Si le user choisi option e avant option a
             {
                 cout << "Vous avez choisi l'option c avant l'otion a!" << endl;
             }
             else
             {
-                // afficherPlusLongChemin();
+                cout << "Quel est l'identifiant de l'origine?: " << endl;
+                cin >> origine_identifiant;
+                Constante::Type type = getTypeEnum(type_choisi);
+                graphe_.VoiturePropriety(type,autonomie_max,autonomie_actuel,coefficientDePerte);
+                Sommet sommet = graphe_.trouverSommet(origine_identifiant);
+                Voiture voiture = graphe_.getVoiture();
+                std::vector<Arc>  sousGraphe = graphe_.extractionGraphe(sommet, voiture);
+
+                for( auto & arc : sousGraphe){
+                    cout << "sous-graphe" << arc.getOrigin().getIdentifiant() << arc.getDestination().getIdentifiant() << endl;
+                }
             }
         }
         else if (choix == 'd')
@@ -151,3 +161,5 @@ Constante::Type Interface::getTypeEnum(string type)
         return Constante::Type::Rien;
     }
 }
+
+

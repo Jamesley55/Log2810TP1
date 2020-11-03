@@ -255,3 +255,41 @@ Voiture Graphe::getVoiture()
 {
     return voiture_;
 }
+
+std::vector<Arc> Graphe::extractionGraphe(Sommet & sommet, Voiture & Voiture){
+    std::map<Sommet, informationStation> station;
+
+    for (auto &sommet : sommet_)
+    {
+        station[sommet].distance = Infinity;
+        station[sommet].visited = false;
+    }
+    std::vector<Arc> pathWay;
+
+    dfs(sommet, station,pathWay, Voiture);
+    return pathWay;
+    
+}
+
+ void Graphe::dfs(Sommet &sommet, std::map<Sommet, informationStation> station, vector<Arc>& pathway, Voiture & Voiture) {
+        station[sommet].visited = true; 
+        Arc arc = longestDestination(graphe_[sommet], station, Voiture);
+        if(!station[arc.getDestination()].visited){
+            Sommet destination = arc.getDestination();
+            dfs(destination, station, pathway, Voiture);
+            pathway.push_back(arc);
+        }
+
+}
+
+Arc Graphe::longestDestination( std::vector<Arc> & arcs, std::map<Sommet, informationStation> station, Voiture & Voiture){
+    Arc longestDestination = Arc();
+
+    for(auto &arc : arcs)  {
+        bool voitureFull = voiture_.deplacer(trouverArc(arc.getOrigin(), arc.getDestination()));
+        if(arc.getDistance() > longestDestination.getDistance() && !station[arc.getDestination()].visited && voitureFull)
+            longestDestination = arc; 
+    }
+
+    return longestDestination;
+}

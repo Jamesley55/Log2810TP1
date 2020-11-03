@@ -10,9 +10,7 @@ public:
     int getDistance() const; 
     Sommet getOrigin() const; 
     Sommet getDestination() const; 
-
     void setDistance(int distance); 
-    Arc clone(); 
     
 
 private:

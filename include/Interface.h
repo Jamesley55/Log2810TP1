@@ -7,7 +7,6 @@ class Interface
 public:
     Interface();
     void menu();
-    void afficherPlusLongChemin();
    Constante::Type getTypeEnum(std::string type);
 
 

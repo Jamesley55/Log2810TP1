@@ -29,6 +29,7 @@ public:
     void VoiturePropriety(Constante::Type typeDessence, const int autonomieMaximale, const double autonomieActuelle, const double coefficientDePerte);
     bool sommetInGraphe(const std::string& Sommet); 
     Sommet trouverSommet(const std::string& nomSommet);
+    std::vector<Arc> extractionGraphe(Sommet & sommet, Voiture & Voiture);
 
     
     void Clear();
@@ -41,6 +42,9 @@ private:
     void dijkstra(std::map<Sommet, informationStation> & station); 
     void deplacerVoitureSurleGraphe(std::map<Sommet, informationStation>  & station,  Sommet  &  origine,   Sommet & destination) ;
     Arc trouverArc(const Sommet& origine, const Sommet& destination) const;
+    void dfs(Sommet &sommet, std::map<Sommet, informationStation> station, std::vector<Arc>& pathway, Voiture & Voiture);
+  Arc longestDestination( std::vector<Arc> & arcs, std::map<Sommet, informationStation> station, Voiture & Voiture);
+
     
     Voiture voiture_;
     std::vector<Arc> arc_;

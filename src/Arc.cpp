@@ -29,7 +29,3 @@ void Arc::setDistance(int distance)
     distance = distance_;
 }
 
-Arc Arc::clone()
-{
-    return Arc(origin_, destination_, distance_);
-}
