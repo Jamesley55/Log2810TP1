@@ -1,3 +1,11 @@
+/*-----------------------------
+Classe Sommet
+Author: Steven Diep 2010339
+        Jamesley Joseph 1990552
+        Alex Hua 1994253
+Date: 3 novembre 2020
+------------------------------*/
+
 #include "Sommet.h"
 
 Sommet::Sommet() : identifiant_(""), type_(Constante::Type::Rien)

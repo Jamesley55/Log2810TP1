@@ -1,3 +1,11 @@
+/*-----------------------------
+Classe Graphe
+Author: Steven Diep 2010339
+        Jamesley Joseph 1990552
+        Alex Hua 1994253
+Date: 3 novembre 2020
+------------------------------*/
+
 #include <iostream>
 #include <fstream>
 #include "Graphe.h"
@@ -73,7 +81,7 @@ void Graphe::creerGraphe(const string fichierText)
     }
 }
 
-void Graphe::lireGraphe()
+void Graphe::lireGraphe() //print out le graphe
 {
 
     for (auto it = graphe_.begin(); it != graphe_.end(); ++it)
@@ -236,7 +244,7 @@ Sommet Graphe::trouverSommet(const std::string &SommetToFind)
     return Sommet();
 }
 
-void Graphe::Clear()
+void Graphe::Clear() //fonction pour clear un graphe
 {
     arc_.clear();
     sommet_.clear();
