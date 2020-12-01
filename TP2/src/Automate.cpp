@@ -4,7 +4,7 @@
 
 using namespace std; 
 
-Automate::creerLexique(const std::string fichierText){
+void Automate::creerLexique(const std::string fichierText){
 
     ifstream myFile;
     myFile.open(fichierText);
@@ -19,7 +19,7 @@ Automate::creerLexique(const std::string fichierText){
 
         while(!myFile.eof()){
             std::string tmp;
-            getline(fichier, tmp); 
+            getline(myFile, tmp); 
             dictionnaire_.push_back(tmp);
         }
         myFile.close();
@@ -27,7 +27,7 @@ Automate::creerLexique(const std::string fichierText){
     
 }
 
-Automate::creerVerif(){
+void Automate::creerVerif(){
 
     
 }
