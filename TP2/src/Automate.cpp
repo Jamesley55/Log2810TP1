@@ -27,7 +27,24 @@ void Automate::creerLexique(const std::string fichierText){
     
 }
 
-void Automate::creerVerif(){
+void Automate::creerVerif(std::vector<std::string> mot){
+    etat_ = 0;
+    int compteErreur = 0;
 
+    switch(etat_){
+        case 0:
+            if (mot[0] == dictionnaire_[0]){
+                etat_ = 1;
+            }
+            else{
+                compteErreur++;
+                for(int j = 0; j < dictionnaire_.size(); j++){
+                    if(mot[0] == dictionnaire_[j]){
+                        cout << "Lettre 1 est au mauvais endroit"
+                    }
+                }
+            }
+        case 1:        
+    }
     
 }
