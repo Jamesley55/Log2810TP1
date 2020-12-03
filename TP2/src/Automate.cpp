@@ -4,7 +4,7 @@
 
 using namespace std; 
 
-void Automate::creerLexique(const std::string fichierText){
+bool Automate::creerLexique(const std::string fichierText){
 
     ifstream myFile;
     myFile.open(fichierText);
@@ -14,19 +14,24 @@ void Automate::creerLexique(const std::string fichierText){
     {
         cerr << "Ne peut pas ouvrir ce fichier!";
         exit(1);
+        return false;
     }
     else{
 
         while(!myFile.eof()){
-            std::string tmp;
-            getline(myFile, tmp); 
-            dictionnaire_.push_back(tmp);
+            std::string mot;
+            getline(myFile, mot); 
+            creeAutomate(mot);
+           
         }
         myFile.close();
+
+        return true;
     }
     
 }
 
+<<<<<<< HEAD
 void Automate::creerVerif(){
     etat_ = 0;
     int compteErreur = 0;
@@ -73,3 +78,31 @@ void Automate::creerVerif(){
     }
     
 }
+=======
+void Automate::creeAutomate(const std::string& mot){
+
+
+	for (const char& symbole: mot)
+	{
+		Node caractere = Node(symbole);
+        
+        // if symbole  already existe no need to create a new Node for it
+		if(voisin_.find(caractere.getSymbole()) != voisin_.end())
+		{
+			if(symbole == mot.back())
+				voisin_.find(caractere.getSymbole())->second.setEtatFinal(true);
+		}
+        // if symbole doe not existe we create a new one in the Automate
+		else
+		{
+			if(symbole == mot.back())
+				caractere.setEtatFinal(true);
+			
+			voisin_.insert({caractere.getSymbole(), caractere});
+		}
+
+	}
+}
+
+
+>>>>>>> e1aad1d6bac9fc38d8bf3010ed4317d8bccb601a
