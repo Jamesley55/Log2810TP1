@@ -31,7 +31,6 @@ bool Automate::creerLexique(const std::string fichierText){
     
 }
 
-<<<<<<< HEAD
 void Automate::creerVerif(){
     etat_ = 0;
     int compteErreur = 0;
@@ -39,11 +38,11 @@ void Automate::creerVerif(){
 
     switch(etat_){
         case 0:
-            cout << "Entrer votre reponse:"
+            cout << "Entrer votre reponse:";
             cin >> mot;
 
             if(mot == nullptr){
-                cout << "ce mot ne peut pas etre utilise"
+                cout << "ce mot ne peut pas etre utilise";
                 etat_ = 0;
             }
             else{
@@ -52,7 +51,7 @@ void Automate::creerVerif(){
         case 1:
             for(int i = 0; i < dictionnaire_.size(); i++){}
                 if (mot[i] == dictionnaire_[i]){
-                    compteErreur++
+                    compteErreur++;
                 }
             }
             cout << "il y a " << compteErreur << "erreur";
@@ -78,7 +77,6 @@ void Automate::creerVerif(){
     }
     
 }
-=======
 void Automate::creeAutomate(const std::string& mot){
 
 
@@ -105,4 +103,3 @@ void Automate::creeAutomate(const std::string& mot){
 }
 
 
->>>>>>> e1aad1d6bac9fc38d8bf3010ed4317d8bccb601a
