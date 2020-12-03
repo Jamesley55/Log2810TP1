@@ -16,7 +16,7 @@ Node::~Node()
 {
 	symbole_ = char(0);
 	isEtatFinal_ = false;
-	voisin_.clear();
+	soisMeme_.clear();
 }
 
  bool Node::getEtat() const 
@@ -29,12 +29,17 @@ char Node::getSymbole() const
 	return symbole_;
 }
 
-std::map<char, Node>& Node::getVoisin()
+std::map<char, Node>& Node::getMe()
 {
-	return voisin_;
+	return soisMeme_;
 }
 
 void Node::setEtatFinal(bool EtatFinal)
 {
 	isEtatFinal_ = EtatFinal;
+}
+
+
+void Node::setNext(const Node* next){
+	next_.push_back(next);
 }

@@ -79,27 +79,24 @@ bool Automate::creerLexique(const std::string fichierText){
 } */
 void Automate::creeAutomate(const std::string& mot){
 
-
-	for (const char& symbole: mot)
+ 
+	for (int i = 0; i < mot.size(); i++)
 	{
-		Node caractere = Node(symbole);
+		Node caractere = Node(mot[i]);
         
-        // if symbole  already existe no need to create a new Node for it
-		if(voisin_.find(caractere.getSymbole()) != voisin_.end())
+        auto it = std::find(automate_.begin(), automate_.end(), caractere.getSymbole() );
+        // if symbole  does not exist already we create a  new Node for it
+		if(it == automate_.end())
 		{
-			if(symbole == mot.back())
-				voisin_.find(caractere.getSymbole())->second.setEtatFinal(true);
-		}
-        // if symbole doe not existe we create a new one in the Automate
-		else
-		{
-			if(symbole == mot.back())
-				caractere.setEtatFinal(true);
-			
-			voisin_.insert({caractere.getSymbole(), caractere});
-		}
+            automate_.push_back(caractere);
 
-	}
+		}
+        i == mot.size()-1? caractere.setEtatFinal(true): caractere.setNext(new Node(mot[i+1]));
+
+
+    
+
+	} 
 }
 
 

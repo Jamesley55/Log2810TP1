@@ -1,6 +1,9 @@
 
 #pragma once 
 #include <map>
+#include <iostream>
+#include <memory>
+#include <vector>
 
 class Node {
 
@@ -12,14 +15,16 @@ class Node {
 		~Node(); 
 
         bool getEtat() const ;
-       char getSymbole() const ;
-        std::map<char,Node>& getVoisin();
+        char getSymbole() const ;
+        std::map<char,Node>& getMe();
         void setEtatFinal(bool EtatFinal);
+        void setNext(const Node*  next);
 
 
 	private:
 		bool isEtatFinal_;
 		char symbole_;
-		std::map<char, Node> voisin_;
+        std::vector<const Node*> next_; 
+		std::map<char, Node> soisMeme_;
 
 };

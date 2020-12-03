@@ -2,6 +2,7 @@
 #include <vector>
 #include<string>
 #include <map>
+#include <algorithm>    
 #include "Node.h"
 
 class Automate {
@@ -11,9 +12,9 @@ class Automate {
         void creerVerif(const std::string& entree);
         void afficherLexique();
         std::string choisirMotAleatoire();
-       std::map<char, Node>& getVoisin_() ;
+        std::map<char, Node>& getVoisin_() ;
 
     private:
-        std::map<char, Node> voisin_;
+        std::vector<Node> automate_;
 
 };
