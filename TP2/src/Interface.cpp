@@ -38,11 +38,11 @@ void Interface::menu()
                 break;
 
             case Interface::QUITTER:
-                std::cout << "Bye bye!" << std::endl;
+                std::cout << "au revoir" << std::endl;
                 break;
 
             default:
-                std::cout << "Veuillez selectionner une des 4 options presentees." << std::endl;
+                std::cout << "selection l'un des quatre option" << std::endl;
                 break;
         }
 
