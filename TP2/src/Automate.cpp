@@ -31,7 +31,7 @@ bool Automate::creerLexique(const std::string fichierText){
     
 }
 
-void Automate::creerVerif(){
+/* void Automate::creerVerif(){
     etat_ = 0;
     int compteErreur = 0;
     std::vector<std::string> mot;
@@ -76,7 +76,7 @@ void Automate::creerVerif(){
 
     }
     
-}
+} */
 void Automate::creeAutomate(const std::string& mot){
 
 
