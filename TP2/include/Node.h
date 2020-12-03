@@ -16,11 +16,13 @@ class Node {
 		~Node(); 
 
         bool getEtat() const ;
-        char getSymbole() const ;
+        char getSymbole();
         std::map<char,Node>& getMe();
         void setEtatFinal(bool EtatFinal);
         void setNext(const Node*  next);
         std::vector<const Node*>  getNext();
+        bool operator==( Node& letter);
+
 
 
 	private:

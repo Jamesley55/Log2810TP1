@@ -30,7 +30,7 @@ Node::~Node()
 	return isEtatFinal_;
 }
 
-char Node::getSymbole() const 
+char Node::getSymbole()  
 {
 	return symbole_;
 }
@@ -52,4 +52,10 @@ void Node::setNext(const Node* next){
 
 std::vector<const Node*> Node::getNext(){
 return next_;
+}
+
+
+bool Node::operator==(Node& letter)
+{
+       return symbole_ == letter.symbole_; 
 }

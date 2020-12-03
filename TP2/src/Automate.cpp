@@ -39,7 +39,7 @@ void Automate::creeAutomate(const std::string& mot){
 	for (int i = 0; i < mot.size(); i++)
 	{
         
-        auto it = std::find(automate_.begin(), automate_.end(), caractere->getSymbole() );
+        auto it = std::find_if(automate_.begin(), automate_.end(), [&](const Node* node) {return node == caractere;});
         // if symbole  does not exist already we create a  new Node for it
 		if(it == automate_.end())
 		{
@@ -59,7 +59,7 @@ void Automate::creeAutomate(const std::string& mot){
     char premierCaractere = entree[0]; 
     Node * start; 
      
-    auto it = std::find_if(automate_.begin(), automate_.end(), [=](const Node& node) {return node.getSymbole() == premierCaractere;});
+    auto it = std::find_if(automate_.begin(), automate_.end(), [&](const  Node* node) {return node ==  new Node(premierCaractere);});
     std::size_t index = std::distance(automate_.begin(), it);
     
     	if(it == automate_.end())
@@ -76,33 +76,33 @@ void Automate::creeAutomate(const std::string& mot){
     for (int i = 0; i < entree.size(); i++)
 	{
         
-        auto next = std::find_if(start->getNext().begin(), start->getNext().end(), [=](const Node& node) {return node.getSymbole() == motSecret_[i];});
-        std::size_t index = std::distance(start->getNext().begin(), it);
+        auto next = std::find_if(start->getNext().begin(), start->getNext().end(), [&](const Node* node) {return node ==  new Node(motSecret_[i]);});
+        std::size_t index = std::distance<std::vector<const Node*>::const_iterator>(start->getNext().begin(), it);
 
         if(it != automate_.end())
 		{
             count++; 
-            start = start->getNext().at(index);
+            start = const_cast<Node*>(start->getNext().at(index));
 
 
 		}
         else{
             // on cherche si cela cree une boucle 
             if(start->getSymbole() == motSecret_[i]){
-               count++
+               count++;
             }else{
                 // we need to modify this function
-                start = start->getNext()[0];
+                start = const_cast<Node*>(start->getNext()[0]);
             }
         }
 
         if(count == entree.size() && start->getNext().at(index)->getEtat()){
 
-            cout << "felicitation tu a trouver le mot cacher"
+            cout << "felicitation tu a trouver le mot cacher";
         }
         else{
              cout << "vous n'avez pas trouver le mot cacher" << endl;
-             cout <<  "vous avez eu: " << count << " mot a la bonne place"
+             cout <<  "vous avez eu: " << count << " mot a la bonne place";
         }
 	} 
     
