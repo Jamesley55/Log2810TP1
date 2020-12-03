@@ -93,9 +93,6 @@ void Automate::creeAutomate(const std::string& mot){
 		}
         i == mot.size()-1? caractere.setEtatFinal(true): caractere.setNext(new Node(mot[i+1]));
 
-
-    
-
 	} 
 }
 
