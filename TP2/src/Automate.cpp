@@ -71,7 +71,6 @@ void Automate::creeAutomate(const std::string& mot){
         else{
             start = automate_.at(index);
         }
-
     
     int count = 1; 
     for (int i = 0; i < entree.size(); i++)
@@ -88,7 +87,13 @@ void Automate::creeAutomate(const std::string& mot){
 
 		}
         else{
-            start = start->getNext()[0];
+            // on cherche si cela cree une boucle 
+            if(start->getSymbole() == motSecret_[i]){
+               count++
+            }else{
+                // we need to modify this function
+                start = start->getNext()[0];
+            }
         }
 
         if(count == entree.size() && start->getNext().at(index)->getEtat()){
