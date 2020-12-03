@@ -61,6 +61,10 @@
         "utility": "cpp",
         "vector": "cpp",
         "fstream": "cpp",
-        "deque": "cpp"
-    }
+        "deque": "cpp",
+        "__tree": "cpp",
+        "filesystem": "cpp",
+        "map": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

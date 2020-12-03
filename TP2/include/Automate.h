@@ -16,5 +16,6 @@ class Automate {
 
     private:
         std::vector<Node*> automate_;
+        string motSecret_; 
 
 };

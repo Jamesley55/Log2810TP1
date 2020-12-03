@@ -1,6 +1,12 @@
 #include "Node.h"
 
-Node::Node(char symbole) :
+Node::Node():
+	symbole_(char(0)) ,
+	isEtatFinal_(false)
+{
+}
+
+Node::Node(char symbole):
 	symbole_(symbole) ,
 	isEtatFinal_(false)
 {
@@ -42,4 +48,8 @@ void Node::setEtatFinal(bool EtatFinal)
 
 void Node::setNext(const Node* next){
 	next_.push_back(next);
+}
+
+std::vector<const Node*> Node::getNext(){
+return next_;
 }
