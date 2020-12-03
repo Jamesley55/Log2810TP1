@@ -1,16 +1,19 @@
 
 #include <vector>
 #include<string>
+#include <map>
+#include "Node.h"
 
 class Automate {
     public:
-        void creerLexique(const std::string fichierText);
-        void creerVerif();
-        void modeAuto(); 
-        void modeVersus(); 
-        enum Etat {0,1,2,3,4,5}
+        bool creerLexique(const std::string fichierText);
+        void creeAutomate(const std::string& mot);
+        void creerVerif(const std::string& entree);
+        void afficherLexique();
+        std::string choisirMotAleatoire();
+       std::map<char, Node>& getVoisin_() ;
 
     private:
-        std::vector<std::string> dictionnaire_;
-        Etat etat_;
+        std::map<char, Node> voisin_;
+
 };

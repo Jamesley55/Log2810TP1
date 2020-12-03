@@ -3,42 +3,63 @@
 
 using namespace std;
 
+void Interface::afficherMenu()
+{
+    std::cout << "selectionner une option: " << std::endl
+              << "(1) Initialisation du jeu" << std::endl
+              << "(2) Partie contre l'ordinateur" << std::endl
+              << "(3) Deux joueurs" << std::endl
+              << "(4) Quitter" << std::endl;
+}
+
 
 void Interface::menu()
 {
+    Interface::MENU option;
+    std::string nomLexique;
 
-    int choix;
+    do
+    {
+        afficherMenu();
+        option = optionUtilisateur();
 
-    cout << endl
-        << "(1) "
-        << "Initialisation du jeu" << endl
-        << "(2) "
-        << "Partie contre l’ordinateur" << endl
-        << "(3) "
-        << "Deux joueurs" << endl
-        << "(4) "
-        << "Quitter" << endl;
+        switch (option)
+        {
+            case Interface::INITIALISATION_DU_JEU:
+                initialiserJeu();
+                break;
 
-        cin >> choix;
+            case Interface::PARTI_CONTRE_ORDINATEUR:
+                modeAuto();
+                break;
 
-        if(choix == 1)
-        {
-            //Lire lexique afin de creer l'automate
+            case Interface::DEUX_JOUEURS:
+                modeVersus();
+                break;
+
+            case Interface::QUITTER:
+                std::cout << "Bye bye!" << std::endl;
+                break;
+
+            default:
+                std::cout << "Veuillez selectionner une des 4 options presentees." << std::endl;
+                break;
         }
-        else if(choix == 2)
-        {
-            //demarer le jeu v.s. ordi
-        }
-        else if(choix == 3)
-        {
-            //demarer le jeu v.s. joueur
-        }
-        else if(choix == 4)
-        {
-            exit(1);
-        }
-        else
-        {
-            cout << "Vous n'avez pas entré un choix valide!";
-        }
+
+    } while (option != Interface::QUITTER);
 }
+
+
+
+void Interface::initialiserJeu()
+{
+    std::string nomLexique;
+    do
+    {
+        nomLexique = getEntreeUtilisateur("Veuillez saisir le nom du lexique: ");
+    } while (!automate_.creerLexique(nomLexique));
+
+    isJeuInitialise_ = true;
+}
+
+
