@@ -15,6 +15,6 @@ class Automate {
         std::map<char, Node>& getVoisin_() ;
 
     private:
-        std::vector<Node> automate_;
+        std::vector<Node*> automate_;
 
 };
