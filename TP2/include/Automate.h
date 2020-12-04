@@ -12,7 +12,9 @@ class Automate {
         void creerVerif(const std::string& entree);
         void afficherLexique();
         std::string choisirMotAleatoire();
-        std::map<char, Node>& getVoisin_() ;
+        std::map<char, Node>& getVoisin_();
+        Node* findStart(const std::string &entree);
+
 
     private:
         std::vector<Node*> automate_;

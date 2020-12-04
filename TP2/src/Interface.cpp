@@ -55,19 +55,10 @@ void Interface::menu()
 
 void Interface::initialiserJeu()
 {
-   /* std::string nomLexique;
-    do
-    {
-        nomLexique = getEntreeUtilisateur("Veuillez saisir le nom du lexique: ");
-    } while (!automate_.creerLexique(nomLexique));
-
-    isJeuInitialise_ = true;
-
-    */
 
    string nomLexique;
 
-   cout << "Quelle lexique voulez vous choisir?: (Lexique_1.txt, Lexique_2.txt, Lexique_3.txt) " << endl
+   cout << "rentrer le nom de la lexique que vous voulez acceder" << endl
    cin >> nomLexique;
 
    creerLexique(nomLexique);
@@ -96,10 +87,11 @@ void Interface::modeAuto(){
         creerVerif(motJoueur);
     }while(isGagner_ = false && count <= 15)
 
-    if(isGagner == false)
+    if(isGagner_ == false)
     {
         cout << "Vous avez faites 15 tentatives. Le mot secret est " + motSecret_;
     }
+    
 }     
 
 void Interface::modeVersus(){
@@ -114,8 +106,9 @@ void Interface::modeVersus(){
         //verifier que le mot existe ou donner des suggestions
 
     }
-    while(confirm != 1)
+    while(confirm != 1);
 
     //steven, je comprend pas comment on va faire avec 2 utilisateur, comme 2 terminal
     //cuz la le probleme
 }
+

@@ -3,7 +3,9 @@
 int main()
 {
 
-    Interface interfacejeu = Interface();
-    interfacejeu.menu();
+     Interface interfacejeu = Interface();
+     interfacejeu.menu();
+   
+
     return 0;
 }
