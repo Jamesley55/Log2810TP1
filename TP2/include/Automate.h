@@ -16,6 +16,7 @@ class Automate {
 
     private:
         std::vector<Node*> automate_;
-        std::string motSecret_; 
+        std::string motSecret_;
+        bool isGagner_; 
 
 };

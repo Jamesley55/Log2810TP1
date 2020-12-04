@@ -56,23 +56,9 @@ void Automate::creeAutomate(const std::string& mot){
 
 
  void Automate::creerVerif(const std::string& entree){
-    char premierCaractere = entree[0]; 
-    Node * start; 
-     
-    auto it = std::find_if(automate_.begin(), automate_.end(), [&](const  Node* node) {return node ==  new Node(premierCaractere);});
-    std::size_t index = std::distance(automate_.begin(), it);
-    
-    	if(it == automate_.end())
-		{
-            cout << "you have zero letter right";
-            cout << "try again";
-
-		}
-        else{
-            start = automate_.at(index);
-        }
-    
-    int count = 1; 
+    Node* start =  findStart(entree)
+    int count = 1;
+    isGagner_ = false; 
     for (int i = 0; i < entree.size(); i++)
 	{
         
@@ -84,28 +70,58 @@ void Automate::creeAutomate(const std::string& mot){
             count++; 
             start = const_cast<Node*>(start->getNext().at(index));
 
-
 		}
         else{
             // on cherche si cela cree une boucle 
             if(start->getSymbole() == motSecret_[i]){
                count++;
-            }else{
-                // we need to modify this function
-                start = const_cast<Node*>(start->getNext()[0]);
+            }
+            // si la il n'y a pas de boucle on continue quand meme l'iteration vers la prochaine valeur 
+            else{
+                size_t increment =0;
+                do{auto itRetstart = std::find_if(automate_.begin(), automate_.end(), [&](const  Node* node) {return node ==  new Node(motSecret_[i+incement]);});
+                std::size_t indexRestart = std::distance(automate_.begin(), itRetstart);
+                start = const_cast<Node*>(start->getNext().at(indexRestart));
+                incrememnt++;
+                }
+                while(itRestart !=  automate_.end && increment < entree.size()-i;)
             }
         }
+	} 
 
-        if(count == entree.size() && start->getNext().at(index)->getEtat()){
+    if(count == entree.size() && start->getEtat()){
 
             cout << "felicitation tu a trouver le mot cacher";
-        }
-        else{
+            isGagner_ = true;
+    }
+    else{
              cout << "vous n'avez pas trouver le mot cacher" << endl;
              cout <<  "vous avez eu: " << count << " mot a la bonne place";
-        }
-	} 
-    
+    }
+ 
     
 } 
 
+
+
+Node* Automate::findStart(const std::string& entree){
+    bool findFirstLetter = false;
+    size_t indexFirst = 0; 
+    while(!findFirstLetter){
+        char premierCaractere = entree[indexFirst]; 
+        Node * start; 
+        auto it = std::find_if(automate_.begin(), automate_.end(), [&](const  Node* node) {return node ==  new Node(premierCaractere);});
+        std::size_t index = std::distance(automate_.begin(), it);
+    
+    	if(it != automate_.end())
+		{
+            start = automate_.at(index);
+            findFirstLetter = true;
+        }
+        else{
+            indexFirst++; 
+        }
+    }
+    return start;
+
+}

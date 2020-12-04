@@ -22,6 +22,8 @@ class Node {
         void setNext(const Node*  next);
         std::vector<const Node*>  getNext();
         bool operator==( Node& letter);
+        Node* findStart(const std::string& entree);
+
 
 
 
