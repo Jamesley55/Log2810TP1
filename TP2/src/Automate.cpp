@@ -26,6 +26,7 @@ bool Automate::creerLexique(const std::string fichierText)
             if (myFile.eof())
                 break;
             creeAutomate(mot);
+            dictionnaire_.push_back(mot);
         }
 
         myFile.close();
@@ -120,12 +121,12 @@ void Automate::creerVerif(const std::string &entree)
 
     if (count == motSecret_.size() && start->getEtat())
     {
-        cout << "felicitation tu a trouver le mot cacher";
+        cout << "felicitation tu as trouvé le mot cacher";
         isGagner_ = true;
     }
     else
     {
-        cout << "vous n'avez pas trouver le mot cacher" << endl;
+        cout << "vous n'avez pas trouvé le mot cacher" << endl;
         cout << "vous avez eu: " << count << " mot a la bonne place" << endl;
     }
 }
@@ -152,6 +153,19 @@ Node *Automate::findStart(const std::string &entree)
             indexFirst++;
         }
     }
-
     return start;
+}
+
+
+std::vector<string> Automate::getDictionnaire(){
+
+    return dictionnaire_; 
+}
+
+void Automate::setMotSecret(std::string motSecret){
+  motSecret_ = motSecret;
+}
+
+bool Automate::partiGagner(){
+ return isGagner_;
 }

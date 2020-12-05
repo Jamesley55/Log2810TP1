@@ -12,103 +12,164 @@ void Interface::afficherMenu()
               << "(4) Quitter" << std::endl;
 }
 
-
 void Interface::menu()
 {
     Interface::MENU option;
     std::string nomLexique;
+    afficherMenu();
 
     do
     {
-         afficherMenu();
         option = optionUtilisateur();
-
         switch (option)
         {
-            case Interface::INITIALISATION_DU_JEU:
-               //  initialiserJeu();
-                break;
+        case Interface::INITIALISATION_DU_JEU:
+            initialiserJeu();
+            break;
 
-            case Interface::PARTI_CONTRE_ORDINATEUR:
-                // modeAuto();
-                break;
+        case Interface::PARTI_CONTRE_ORDINATEUR:
+            modeAuto();
+            break;
 
-            case Interface::DEUX_JOUEURS:
-               //  modeVersus();
-                break;
+        case Interface::DEUX_JOUEURS:
+            //  modeVersus();
+            break;
 
-            case Interface::QUITTER:
-                std::cout << "Au revoir" << std::endl;
-                break;
+        case Interface::QUITTER:
+            std::cout << "Au revoir" << std::endl;
+            break;
 
-            default:
-                std::cout << "Selection l'un des quatre option" << std::endl;
-                break;
-                
+        default:
+            std::cout << "Selectionner l'un des quatre options" << std::endl;
+            break;
         }
 
-    } while (option != Interface::QUITTER); 
-    cout << "hello world";
+    } while (option != Interface::QUITTER);
 }
 
-
-
-void Interface::initialiserJeu()
+Interface::MENU Interface::optionUtilisateur()
 {
 
-   string nomLexique;
+    bool optionSelectionner = false;
 
-   cout << "rentrer le nom de la lexique que vous voulez acceder" << endl
-   cin >> nomLexique;
+    int optionUtilisateur;
+    do
+    {
+        cin >> optionUtilisateur;
+        if (optionUtilisateur == 1 || optionUtilisateur == 2 || optionUtilisateur == 3 || optionUtilisateur == 4)
+        {
+            optionSelectionner = true;
+        }
+        else 
+        {
+          
+            cout << "selectionner le mombre correspondant a votre choix";
+        }
+    } while (!optionSelectionner);
 
-   creerLexique(nomLexique);
-
+    switch (optionUtilisateur)
+    {
+    case 1:
+        optionSelectionner = true;
+        return Interface::INITIALISATION_DU_JEU;
+        break;
+    case 2:
+        optionSelectionner = true;
+        return Interface::PARTI_CONTRE_ORDINATEUR;
+        break;
+    case 3:
+        optionSelectionner = true;
+        return Interface::DEUX_JOUEURS;
+        break;
+    case 4:
+        optionSelectionner = true;
+        return Interface::QUITTER;
+        break;
+    default:
+        break;
+    }
+}
+void Interface::initialiserJeu()
+{
+    string nomLexique;
+    cout << "Entrer le nom de la lexique que vous voulez acceder" << endl;
+    cin >> nomLexique;
+    automate_.creerLexique(nomLexique);
+    jeuxACommencer_ = true;
 }
 
-void Interface::modeAuto(){
+void Interface::modeAuto()
+{
+
+    if (jeuxACommencer_)
+    {
+        std::vector<string> dictionnaire = automate_.getDictionnaire();
+        std::string motSecret = dictionnaire[rand() % dictionnaire.size()];
+        automate_.setMotSecret(motSecret);
+        cout << "Le nombre de lettre du mot est: " << motSecret.length() << endl;
+        devinerMot(motSecret);
+    }
+    else
+    {
+        cout << "Initialiser le jeux avant de commencer a jouer";
+    }
+}
+
+void Interface::modeVersus()
+{
+    if (jeuxACommencer_)
+    {
+        int confirm;
+        std::string motChoisi;
+
+        do
+        {
+            cout << "Quel code?" << endl;
+            cin >> motChoisi;
+            //verifier que le mot existe ou donner des suggestions
+
+        } while (confirm != 1);
+
+        devinerMot("bbbb");
+    }
+    else
+    {
+        cout << "Initialiser le jeux avant de commencer a jouer";
+    }
+}
+void Interface::devinerMot(std::string motSecret)
+{
 
     int compteur = 0;
+    std::string motJoueur;
 
-    std::string motSecret_ = automate_[rand() % automate_.size()];
-
-    cout << "Le nombre de lettre du mot est: " + motSecret_.length() << end;
-
-    do{
-        do{
-            cout << "Entrée votre réponse:";
-            std::string motJoueur;
+    do
+    {
+        do
+        {
+            cout << "Entrée votre réponse:" << endl;
             cin >> motJoueur;
-        } 
-        while(motJoueur.length() != motSecret_.length()) //faut aussi check que c'est juste des lettres //okok
+        } while (!isAlphabet(motJoueur));
 
         compteur++;
-        cout << compteur << "essaie de faite";
-        
-        creerVerif(motJoueur);
-    }while(isGagner_ = false && count <= 15)
+        cout << compteur << " tentative de faite " << endl;
 
-    if(isGagner_ == false)
+        automate_.creerVerif(motJoueur);
+    } while (automate_.partiGagner() == false && compteur <= 15);
+
+    if (automate_.partiGagner() == false)
     {
-        cout << "Vous avez faites 15 tentatives. Le mot secret est " + motSecret_;
+        cout << "Vous avez faites 15 tentatives. Le mot secret est " << motSecret;
     }
-    
-}     
-
-void Interface::modeVersus(){
-
-    int confirm;
-    int compteur = 0;
-    string motChoisi;
-
-    do{
-        cout << "Quel code?" << endl;
-        cin >> motChoisi;
-        //verifier que le mot existe ou donner des suggestions
-
-    }
-    while(confirm != 1);
-
-    //steven, je comprend pas comment on va faire avec 2 utilisateur, comme 2 terminal
-    //cuz la le probleme
 }
 
+bool Interface::isAlphabet(std::string string)
+{
+
+    for (char letter : string)
+    {
+        if (letter <= 'A' && letter >= 'Z' || letter <= 'a' && letter >= 'z')
+            return false;
+    }
+    return true;
+}

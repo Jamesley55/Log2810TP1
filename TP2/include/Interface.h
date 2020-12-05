@@ -15,8 +15,11 @@ class Interface
         void modeVersus();
         const std::string& getEntreeUtilisateur(const std::string& entree);
         MENU optionUtilisateur();
+        void devinerMot(std::string motSecret);
+        bool isAlphabet(std::string string);
 
 
         Automate automate_;
         bool isJeuInitialise_;
+        bool jeuxACommencer_;
 };
