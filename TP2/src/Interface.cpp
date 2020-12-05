@@ -117,6 +117,7 @@ void Interface::modeVersus()
             cout << "Quel code?" << endl;
             cin >> motChoisi;
             //verifier que le mot existe ou donner des suggestions
+            Automate::motSuggere(motChoisi);
 
         } while (confirm != 1);
 

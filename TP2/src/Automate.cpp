@@ -169,3 +169,51 @@ void Automate::setMotSecret(std::string motSecret){
 bool Automate::partiGagner(){
  return isGagner_;
 }
+
+// std::string Automate::motSuggere(const std::string &motEntree)
+// {
+//     Node *start = Automate::findStart(motEntree);
+
+//     std::size_t found = entree.find(start->getSymbole());
+
+//     for(int i = 0; i < dictionnaire.size(); i++)
+//     {
+//         for(int j = found; j < motEntree.size(); j++)
+//         {
+//             if(start->getSymbole() == dictionnaire_[j][i] && dictionnaire_[j][i] == motEntree[j]){
+//                 start = start;
+//             }
+
+//             Node *next = start->getNext(dictionnaire_[j][i])
+
+//             if(next != nullptr && dictionnaire_[j][i] == motEntree[j]){
+//                 start = next;
+//             }
+ 
+//         }
+//     }
+    
+// }
+
+std::string Automate::motSuggere(const std::string &motEntree)
+{
+    bool isTrue = false;
+    std::vector<char> motDictionnaire;
+
+    for(int i = 0; i < dictionnaire_.size(); i++){
+        motDictionnaire = dictionnaire_[i];
+        for(int j = 0; j < motEntree.size(); j++){
+            if(motDictionnaire[j] == motEntree[j]){
+                isTrue = true;
+            }
+            else{
+                isTrue = false;
+            }
+        }
+        if(isTrue == true){
+            return dictionnaire_[i];
+        }
+    }
+    return null;
+    
+}
