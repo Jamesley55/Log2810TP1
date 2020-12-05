@@ -16,7 +16,6 @@ void Interface::menu()
 {
     Interface::MENU option;
     std::string nomLexique;
-    afficherMenu();
 
     do
     {
@@ -32,7 +31,7 @@ void Interface::menu()
             break;
 
         case Interface::DEUX_JOUEURS:
-            //  modeVersus();
+            modeVersus();
             break;
 
         case Interface::QUITTER:
@@ -49,24 +48,15 @@ void Interface::menu()
 
 Interface::MENU Interface::optionUtilisateur()
 {
-
+    afficherMenu();
     bool optionSelectionner = false;
-
     int optionUtilisateur;
-    do
+    while (!(cin >> optionUtilisateur))
     {
-        cin >> optionUtilisateur;
-        if (optionUtilisateur == 1 || optionUtilisateur == 2 || optionUtilisateur == 3 || optionUtilisateur == 4)
-        {
-            optionSelectionner = true;
-        }
-        else 
-        {
-          
-            cout << "selectionner le mombre correspondant a votre choix";
-        }
-    } while (!optionSelectionner);
-
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "choisisez la valeur numerique  associer a votre choix: " << endl;
+    }
     switch (optionUtilisateur)
     {
     case 1:
@@ -159,7 +149,7 @@ void Interface::devinerMot(std::string motSecret)
 
     if (automate_.partiGagner() == false)
     {
-        cout << "Vous avez faites 15 tentatives. Le mot secret est " << motSecret;
+        cout << "Vous avez faites 15 tentatives. Le mot secret est " << motSecret << endl; ;
     }
 }
 
@@ -173,3 +163,4 @@ bool Interface::isAlphabet(std::string string)
     }
     return true;
 }
+
