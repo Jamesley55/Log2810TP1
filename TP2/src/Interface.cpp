@@ -115,13 +115,38 @@ void Interface::modeVersus()
         do
         {
             cout << "Quel code?" << endl;
-            cin >> motChoisi;
+            std::string choixInitial;
+
+            cin >> choixInitial;
             //verifier que le mot existe ou donner des suggestions
-            Automate::motSuggere(motChoisi);
-
+            std::vector<string> suggestions =  automate_.motSuggere(choixInitial);
+            if(!suggestions.empty()){
+                cout << "vos suggestion sont: " << endl; 
+            }
+            for(string suggestion: suggestions) {
+                cout << suggestion << endl;
+            }
+            cout << "choisisez un nouvezu mot secret d'apres les suggestion" << endl; 
+            cin >> motChoisi;   
+          //   cout << "test mot choisi: "  << motChoisi << " verfication: " << automate_.verifMotChoisi(motChoisi) << endl; 
+            if(automate_.verifMotChoisi(motChoisi)){     // ca sort toujours false
+                cout << "Voulez-vous s ́electionner ce code? (1:oui/0:non)" << endl;
+                int confirmation;
+                cin >> confirmation;
+                if(confirmation == 1){
+                    confirm = 1;
+                }
+                else{
+                    confirm = 0;
+                } 
+            }    
+            
         } while (confirm != 1);
-
-        devinerMot("bbbb");
+        
+        // commence a jouer
+        automate_.setMotSecret(motChoisi);
+        cout << "Le nombre de lettre du mot est: " << motChoisi.length() << endl;
+        devinerMot(motChoisi);
     }
     else
     {
@@ -143,6 +168,7 @@ void Interface::devinerMot(std::string motSecret)
         } while (!isAlphabet(motJoueur));
 
         compteur++;
+        cout << endl; 
         cout << compteur << " tentative de faite " << endl;
 
         automate_.creerVerif(motJoueur);

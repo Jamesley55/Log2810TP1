@@ -25,6 +25,7 @@ bool Automate::creerLexique(const std::string fichierText)
             getline(myFile, mot);
             if (myFile.eof())
                 break;
+            mot.pop_back();
             creeAutomate(mot);
             dictionnaire_.push_back(mot);
         }
@@ -69,7 +70,7 @@ void Automate::creeAutomate(const std::string &mot)
     }
 
     // mettre la derniere valeur comme un etat Finale.
-    char back = mot[mot.size() - 2];
+    char back = mot[mot.size() - 1];
     auto it = std::find_if(automate_.begin(), automate_.end(), [&](Node *node) { return node->operator==(back); });
     (*it)->setEtatFinal(true);
 }
@@ -81,17 +82,16 @@ void Automate::creerVerif(const std::string &entree)
     isGagner_ = false;
 
     std::size_t found = entree.find(start->getSymbole());
-    
+
     for (int i = found; i < entree.size(); i++)
     {
         if (start->getSymbole() == motSecret_[i] && motSecret_[i] == entree[i])
         {
-            
+
             count++;
             start = start;
 
             continue;
-
         }
         Node *next = start->getNext(motSecret_[i]);
 
@@ -121,13 +121,15 @@ void Automate::creerVerif(const std::string &entree)
 
     if (count == motSecret_.size() && start->getEtat())
     {
-        cout << "felicitation tu as trouvé le mot cacher";
+        cout << "felicitation tu as trouvé le mot cacher"<< endl;
+        cout << endl;
         isGagner_ = true;
     }
-    else
+    else 
     {
         cout << "vous n'avez pas trouvé le mot cacher" << endl;
         cout << "vous avez eu: " << count << " mot a la bonne place" << endl;
+        cout << endl; 
     }
 }
 
@@ -156,64 +158,61 @@ Node *Automate::findStart(const std::string &entree)
     return start;
 }
 
-
-std::vector<string> Automate::getDictionnaire(){
-
-    return dictionnaire_; 
-}
-
-void Automate::setMotSecret(std::string motSecret){
-  motSecret_ = motSecret;
-}
-
-bool Automate::partiGagner(){
- return isGagner_;
-}
-
-// std::string Automate::motSuggere(const std::string &motEntree)
-// {
-//     Node *start = Automate::findStart(motEntree);
-
-//     std::size_t found = entree.find(start->getSymbole());
-
-//     for(int i = 0; i < dictionnaire.size(); i++)
-//     {
-//         for(int j = found; j < motEntree.size(); j++)
-//         {
-//             if(start->getSymbole() == dictionnaire_[j][i] && dictionnaire_[j][i] == motEntree[j]){
-//                 start = start;
-//             }
-
-//             Node *next = start->getNext(dictionnaire_[j][i])
-
-//             if(next != nullptr && dictionnaire_[j][i] == motEntree[j]){
-//                 start = next;
-//             }
- 
-//         }
-//     }
-    
-// }
-
-std::string Automate::motSuggere(const std::string &motEntree)
+std::vector<string> Automate::getDictionnaire()
 {
-    bool isTrue = false;
-    std::vector<char> motDictionnaire;
 
-    for(int i = 0; i < dictionnaire_.size(); i++){
+    return dictionnaire_;
+}
+
+void Automate::setMotSecret(std::string motSecret)
+{
+    motSecret_ = motSecret;
+}
+
+bool Automate::partiGagner()
+{
+    return isGagner_;
+}
+
+std::vector<string> Automate::motSuggere(const std::string &motEntree)
+{
+    std::string motDictionnaire;
+    std::vector<string> suggestion;
+    size_t count = 0;
+
+    for (int i = 0; i < dictionnaire_.size(); i++)
+    {
+
         motDictionnaire = dictionnaire_[i];
-        for(int j = 0; j < motEntree.size(); j++){
-            if(motDictionnaire[j] == motEntree[j]){
-                isTrue = true;
+        for (int j = 0; j < motEntree.size(); j++)
+        {
+            if (motDictionnaire[j] == motEntree[j])
+            {
+                count++;
             }
-            else{
-                isTrue = false;
+            else
+            {
+                // break ppur sortir de la boucle quand un mot n'est pas a la bonne place a la place de continuer la boucle
+                break;
             }
         }
-        if(isTrue == true){
-            return dictionnaire_[i];
+        if (count == motEntree.size())
+        {
+            suggestion.push_back(motDictionnaire);
+        }
+        count = 0;
+    }
+    return suggestion;
+}
+
+bool Automate::verifMotChoisi(std::string &motChoisi)
+{
+    for (int i = 0; i < dictionnaire_.size(); i++)
+    {
+        if (dictionnaire_[i].compare(motChoisi) ==0 )
+        {
+            return true;
         }
     }
-    return null;
-    
+    return false;
 }

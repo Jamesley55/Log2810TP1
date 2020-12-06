@@ -17,8 +17,8 @@ class Automate {
         Node* findStart(const std::string &entree);
         std::vector<std::string> getDictionnaire(); 
         bool partiGagner();
-        std::string motSuggere(const std::string &motEntree);
-
+        std::vector<std::string> motSuggere(const std::string &motEntree);
+        bool verifMotChoisi(std::string &motChoisi);
 
 
     private:
