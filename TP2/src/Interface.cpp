@@ -132,12 +132,12 @@ void Interface::modeVersus()
             {
                 cout << suggestion << endl;
             }
-            cout << "choisisez un nouvezu mot secret d'apres les suggestion" << endl;
+            cout << "choisisez un nouveau mot secret d'apres les suggestion" << endl;
             cin >> motChoisi;
             //   cout << "test mot choisi: "  << motChoisi << " verfication: " << automate_.verifMotChoisi(motChoisi) << endl;
             if (automate_.verifMotChoisi(motChoisi))
             { // ca sort toujours false
-                cout << "Voulez-vous s ́electionner ce code? (1:oui/0:non)" << endl;
+                cout << "Voulez-vous sélectionner ce code? (1:oui/0:non)" << endl;
                 int confirmation;
                 cin >> confirmation;
                 if (confirmation == 1)
@@ -183,7 +183,7 @@ void Interface::devinerMot(std::string motSecret)
         cout << compteur << " tentative de faite " << endl;
 
         automate_.creerVerif(motJoueur);
-    } while (automate_.partiGagner() == false && compteur <= 15);
+    } while (automate_.partiGagner() == false && compteur < 15);
 
     if (automate_.partiGagner() == false)
     {
