@@ -137,7 +137,7 @@ Node *Automate::findStart(const std::string &entree)
 {
     bool findFirstLetter = false;
     size_t indexFirst = 0;
-    Node *start;
+    Node *start = new Node();
 
     while (!findFirstLetter && indexFirst < entree.size())
     {

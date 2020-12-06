@@ -197,7 +197,7 @@ bool Interface::isAlphabet(std::string string)
 
     for (char letter : string)
     {
-        if (letter <= 'A' && letter >= 'Z' || letter <= 'a' && letter >= 'z')
+        if ((letter <= 'A' && letter >= 'Z') || (letter <= 'a' && letter >= 'z'))
             return false;
     }
     return true;
