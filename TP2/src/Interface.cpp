@@ -10,6 +10,7 @@ void Interface::afficherMenu()
               << "(2) Partie contre l'ordinateur" << std::endl
               << "(3) Deux joueurs" << std::endl
               << "(4) Quitter" << std::endl;
+    std::cout << endl;
 }
 
 void Interface::menu()
@@ -97,6 +98,7 @@ void Interface::modeAuto()
         std::string motSecret = dictionnaire[rand() % dictionnaire.size()];
         automate_.setMotSecret(motSecret);
         cout << "Le nombre de lettre du mot est: " << motSecret.length() << endl;
+        cout << endl;
         devinerMot(motSecret);
     }
     else
@@ -119,38 +121,47 @@ void Interface::modeVersus()
 
             cin >> choixInitial;
             //verifier que le mot existe ou donner des suggestions
-            std::vector<string> suggestions =  automate_.motSuggere(choixInitial);
-            if(!suggestions.empty()){
-                cout << "vos suggestion sont: " << endl; 
+            std::vector<string> suggestions = automate_.motSuggere(choixInitial);
+            if (!suggestions.empty())
+            {
+
+                cout << "vos suggestion sont: " << endl;
             }
-            for(string suggestion: suggestions) {
+            cout << endl;
+            for (string suggestion : suggestions)
+            {
                 cout << suggestion << endl;
             }
-            cout << "choisisez un nouvezu mot secret d'apres les suggestion" << endl; 
-            cin >> motChoisi;   
-          //   cout << "test mot choisi: "  << motChoisi << " verfication: " << automate_.verifMotChoisi(motChoisi) << endl; 
-            if(automate_.verifMotChoisi(motChoisi)){     // ca sort toujours false
+            cout << "choisisez un nouvezu mot secret d'apres les suggestion" << endl;
+            cin >> motChoisi;
+            //   cout << "test mot choisi: "  << motChoisi << " verfication: " << automate_.verifMotChoisi(motChoisi) << endl;
+            if (automate_.verifMotChoisi(motChoisi))
+            { // ca sort toujours false
                 cout << "Voulez-vous s ́electionner ce code? (1:oui/0:non)" << endl;
                 int confirmation;
                 cin >> confirmation;
-                if(confirmation == 1){
+                if (confirmation == 1)
+                {
                     confirm = 1;
                 }
-                else{
+                else
+                {
                     confirm = 0;
-                } 
-            }    
-            
+                }
+            }
+
         } while (confirm != 1);
-        
+
         // commence a jouer
         automate_.setMotSecret(motChoisi);
         cout << "Le nombre de lettre du mot est: " << motChoisi.length() << endl;
+        cout << endl;
         devinerMot(motChoisi);
     }
     else
     {
         cout << "Initialiser le jeux avant de commencer a jouer";
+        cout << endl;
     }
 }
 void Interface::devinerMot(std::string motSecret)
@@ -168,7 +179,7 @@ void Interface::devinerMot(std::string motSecret)
         } while (!isAlphabet(motJoueur));
 
         compteur++;
-        cout << endl; 
+        cout << endl;
         cout << compteur << " tentative de faite " << endl;
 
         automate_.creerVerif(motJoueur);
@@ -176,7 +187,8 @@ void Interface::devinerMot(std::string motSecret)
 
     if (automate_.partiGagner() == false)
     {
-        cout << "Vous avez faites 15 tentatives. Le mot secret est " << motSecret << endl; ;
+        cout << "Vous avez faites 15 tentatives. Le mot secret est " << motSecret << endl;
+        cout << endl;
     }
 }
 
@@ -190,4 +202,3 @@ bool Interface::isAlphabet(std::string string)
     }
     return true;
 }
-
