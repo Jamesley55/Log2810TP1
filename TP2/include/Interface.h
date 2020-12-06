@@ -1,3 +1,11 @@
+/*-----------------------------
+Classe Interface
+Author: Steven Diep 2010339
+        Jamesley Joseph 1990552
+        Alex Hua 1994253
+Date: 7 decembre 2020
+------------------------------*/
+
 #pragma once
 #include "Automate.h"
 
